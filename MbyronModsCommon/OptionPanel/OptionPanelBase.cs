@@ -55,7 +55,7 @@ public class OptionPanelBase<TypeMod, TypeConfig, TypeOptionPanel> : CustomUIPan
             BuildVersion.StableDebug => "STABLE DEBUG",
             _ => "STABLE",
         };
-        var panel0 = OptionPanelHelper.AddLabel($"{ModMainInfo<TypeMod>.ModName}", $"{ModMainInfo<TypeMod>.ModVersion} {flag}");
+        var panel0 = OptionPanelHelper.AddLabel($"{ModMainInfo<TypeMod>.ModName}", $"{ModMainInfo<TypeMod>.ModVersion.GetString()} {flag}");
         var label0 = panel0.Child as CustomUILabel;
         label0.BgNormalColor = (ModMainInfo<TypeMod>.VersionType == BuildVersion.StableRelease) ? new Color32(76, 148, 10, 255) : ((ModMainInfo<TypeMod>.VersionType == BuildVersion.BetaRelease) ? new Color32(188, 120, 6, 255) : new Color32(6, 132, 138, 255));
         label0.TextPadding = new(4, 4, 4, 2);
