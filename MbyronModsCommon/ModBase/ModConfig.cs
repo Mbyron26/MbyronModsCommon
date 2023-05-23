@@ -40,11 +40,14 @@ public class ModConfig<T> : SingletonItem<T> where T : ModConfig<T>, new() {
                     Instance = c as T;
                 }
             } else {
-                InternalLogger.Warning($"No local config found, use mod default config.");
+                InternalLogger.Log($"No local config found, use mod default config.");
                 Instance = new();
             }
-        } catch (Exception e) {
-            InternalLogger.Exception($"Could't load data from XML file.", e);
+        } catch {
+            InternalLogger.Error($"Could't load data from XML file");
+            Instance = new();
+            Save();
+            InternalLogger.Log($"Regenerate new config file.");
         }
     }
 }
