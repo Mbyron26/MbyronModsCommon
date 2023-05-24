@@ -205,9 +205,6 @@ public abstract class UITabContainerBase<TypeTab, TypeContainer> : UIComponent w
     }
     public override void Update() {
         base.Update();
-        if (m_IsComponentInvalidated) {
-            ArrangeTabs();
-        }
         ShowSelectedTab();
     }
 
@@ -229,7 +226,7 @@ public abstract class UITabContainerBase<TypeTab, TypeContainer> : UIComponent w
         for (int i = 0; i < ContainersCount; i++) {
             var container = containers[i];
             if (container is not null) {
-                container.isVisible = true;
+                container.isVisible = !container.isVisible;
                 container.isVisible = false;
             }
         }
