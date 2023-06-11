@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AltToChangeAll" xml:space="preserve">
+    <value>Altキーを押しながら値を全て変更</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>両方</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>キャンセル</value>
   </data>
@@ -136,7 +142,7 @@
     <value>MODの互換性を確認</value>
   </data>
   <data name="CompatibilityCheck_Minor" xml:space="preserve">
-    <value>この機能は、このMODに関する互換性の問題を検出します。 他のMODで互換性を確認する場合は、 [Compatibility Report] MODを推奨します。</value>
+    <value>この機能は、このMODに関する互換性の問題を検出します。 他のMODで互換性を確認する場合は、 [Skyve] MODを推奨します。</value>
   </data>
   <data name="CompatibilityCheck_SameFunctionality" xml:space="preserve">
     <value>既に同じ機能が含まれています。</value>
@@ -246,6 +252,12 @@
   <data name="No" xml:space="preserve">
     <value>いいえ</value>
   </data>
+  <data name="OnlyInGame" xml:space="preserve">
+    <value>ゲーム内のみ</value>
+  </data>
+  <data name="OnlyInUUI" xml:space="preserve">
+    <value>UUIのみ</value>
+  </data>
   <data name="OptionPanel_Advanced" xml:space="preserve">
     <value>詳細</value>
   </data>
@@ -302,6 +314,12 @@
   </data>
   <data name="ShowControlPanel" xml:space="preserve">
     <value>コントロールパネルを表示</value>
+  </data>
+  <data name="ToolButton" xml:space="preserve">
+    <value>ツールボタン</value>
+  </data>
+  <data name="ToolButtonDisplay" xml:space="preserve">
+    <value>ツールボタンの表示</value>
   </data>
   <data name="XMLWariningMessageBox_Warning" xml:space="preserve">
     <value>警告！ MODは以前の設定データを正常にロード出来ず、デフォルトの設定が適用されています。 ゲームを開始する前に、オプションパネルから設定を確認して下さい。</value>

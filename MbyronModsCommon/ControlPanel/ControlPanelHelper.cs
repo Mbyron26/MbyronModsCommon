@@ -4,6 +4,7 @@ using ColossalFramework.UI;
 using System;
 using UnityEngine;
 using ColossalFramework;
+using ICities;
 
 public static class ControlPanelHelper {
     public static float PropertyPanelWidth { get; set; }
@@ -42,6 +43,37 @@ public static class ControlPanelHelper {
         panel.RenderFg = true;
         return panel;
     }
+
+    public static AlphaSinglePropertyPanel AddButton(string majorText, string minorText, string buttonText, float? buttonWidth, float buttonHeight, OnButtonClicked callback, RectOffset majorOffset = null, RectOffset minorOffset = null) {
+        if (Group is null) {
+            ExternalLogger.Error("OptionPanelHelper_Group is null.");
+            return null;
+        }
+        var panel = AddChildPanel<AlphaSinglePropertyPanel>();
+        var button = CustomUIButton.Add(panel, buttonText, buttonWidth, buttonHeight, callback, 0.8f, false);
+        button.SetControlPanelStyle();
+        button.TextPadding = new RectOffset(0, 0, 4, 0);
+        panel.Child = button;
+        if (majorText is not null) {
+            panel.MajorLabelText = majorText;
+            panel.MajorLabelTextScale = 0.8f;
+            if (majorOffset is not null) {
+                panel.MajorLabelOffset = majorOffset;
+            }
+            if (minorText is not null) {
+                panel.MinorLabelText = minorText;
+                panel.MinorLabelTextScale = 0.7f;
+                if (minorOffset is not null) {
+                    panel.MinorLabelOffset = minorOffset;
+                }
+            }
+        }
+        panel.Padding = DefaultOffset;
+        panel.LabelGap = 4;
+        panel.StartLayout();
+        return panel;
+    }
+
     public static GammaSinglePropertyPanel AddSlider(string majorText, string minorText, float min, float max, float step, float rawValue, Vector2 sliderSize, Action<float> callback, RectOffset majorOffset = null, RectOffset minorOffset = null, bool gradientStyle = false) {
         if (Group is null) {
             ExternalLogger.Error("ControlPanelHelper_Group is null.");

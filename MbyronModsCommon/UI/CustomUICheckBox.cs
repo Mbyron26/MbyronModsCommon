@@ -19,7 +19,7 @@ public class CustomUICheckBox : CustomUIButtonBase {
         return checkbox;
     }
     public void SetCheckBoxStyle() {
-        atlas = CustomUIAtlas.MbyronModsAtlas;
+        textAtlas = bgAtlas = fgAtlas = CustomUIAtlas.MbyronModsAtlas;
         onBgSprites.SetSprites(CustomUIAtlas.Circle);
         onBgSprites.SetColors(CustomUIColor.BlueNormal, CustomUIColor.BlueHovered, CustomUIColor.BluePressed, CustomUIColor.BlueFocused, CustomUIColor.BlueDisabled);
 

@@ -1,4 +1,5 @@
-﻿using ColossalFramework.Globalization;
+﻿namespace MbyronModsCommon.UI;
+using ColossalFramework.Globalization;
 using ColossalFramework.PlatformServices;
 using ColossalFramework.UI;
 using ColossalFramework;
@@ -8,7 +9,6 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using System.ComponentModel;
-namespace MbyronModsCommon.UI;
 
 public static class UIValueFieldHelper {
     public static T AddOptionPanelValueField<T, V>(UIComponent parent, V defaultValue, V minValue, V maxValue, Action<V> callback = null, float fieldWidth = 100, float fieldHeight = 28) where T : CustomUIValueFieldBase<V> where V : IComparable<V> {
@@ -23,6 +23,16 @@ public static class UIValueFieldHelper {
         valueField.EventValueChanged += (v) => callback?.Invoke(v);
         return valueField;
     }
+}
+
+public class UIByteValueField : CustomUIValueFieldBase<byte> {
+    protected override byte ValueDecrease(SteppingRate steppingRate) => (Value - GetStep(steppingRate) < MinValue) ? MinValue : (byte)(Value - GetStep(steppingRate));
+    protected override byte ValueIncrease(SteppingRate steppingRate) => (byte)Mathf.Min(Value + GetStep(steppingRate), MaxValue);
+    protected override byte GetStep(SteppingRate steppingRate) => steppingRate switch {
+        SteppingRate.Fast => (byte)(WheelStep * 10),
+        SteppingRate.Slow => (byte)(WheelStep / 10),
+        _ => WheelStep,
+    };
 }
 
 public class UIFloatValueField : CustomUIValueFieldBase<float> {
@@ -324,13 +334,13 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
     public CustomUIValueFieldBase() => m_CanFocus = true;
 
     public virtual void SetOptionPanelStyle() {
-        atlas = CustomUIAtlas.MbyronModsAtlas;
+        textAtlas = bgAtlas = CustomUIAtlas.MbyronModsAtlas;
         bgSprites.SetSprites(CustomUIAtlas.RoundedRectangle3);
         bgSprites.SetColors(CustomUIColor.OPButtonNormal, CustomUIColor.OPButtonHovered, CustomUIColor.OPButtonPressed, CustomUIColor.BlueNormal, CustomUIColor.OPButtonDisabled);
         selectionSprite = CustomUIAtlas.Rectangle;
     }
     public virtual void SetControlPanelStyle() {
-        atlas = CustomUIAtlas.MbyronModsAtlas;
+        textAtlas = bgAtlas = CustomUIAtlas.MbyronModsAtlas;
         bgSprites.SetSprites(CustomUIAtlas.RoundedRectangle2);
         bgSprites.SetColors(CustomUIColor.CPButtonNormal, CustomUIColor.CPButtonHovered, CustomUIColor.CPButtonPressed, CustomUIColor.GreenNormal, CustomUIColor.CPButtonDisabled);
         selectionSprite = CustomUIAtlas.Rectangle;
@@ -408,8 +418,7 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
                 newValue = (T)(object)text;
             } else if (!string.IsNullOrEmpty(text))
                 newValue = (T)TypeDescriptor.GetConverter(typeof(T)).ConvertFromString(text);
-        }
-        catch { }
+        } catch { }
         OnValueChanged(newValue);
         InvokeUpward("OnTextSubmitted", new object[] { Text });
     }
@@ -539,8 +548,7 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
                                     ClearSelection();
                                     Text = undoData[undoData.Count - undoCount - 1].Text;
                                     cursorIndex = undoData[undoData.Count - undoCount - 1].Position;
-                                }
-                                catch {
+                                } catch {
                                     undoCount++;
                                 }
                                 undoing = false;
@@ -555,8 +563,7 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
                                     ClearSelection();
                                     Text = undoData[undoData.Count - undoCount - 1].Text;
                                     cursorIndex = undoData[undoData.Count - undoCount - 1].Position;
-                                }
-                                catch {
+                                } catch {
                                     undoCount--;
                                 }
                                 undoing = false;
@@ -1210,7 +1217,7 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
         }
     }
     protected override void OnRebuildRenderData() {
-        if (atlas == null || font == null || !font.isValid) {
+        if (bgAtlas == null || textAtlas is null || font == null || !font.isValid) {
             return;
         }
         if (textRenderData != null) {
@@ -1219,15 +1226,15 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
             textRenderData = UIRenderData.Obtain();
             m_RenderData.Add(textRenderData);
         }
-        textRenderData.material = atlas.material;
-        renderData.material = atlas.material;
+        textRenderData.material = textAtlas.material;
+        renderData.material = bgAtlas.material;
         RenderBackground();
         WrapText();
         RenderText();
     }
     private string PasswordDisplayText(string text) => new(PasswordCharacter[0], text.Length);
     protected virtual void RenderBackground() {
-        if (!RenderBg || Atlas is null) {
+        if (!RenderBg || bgAtlas is null) {
             return;
         }
         var spriteInfo = GetBgSprite();
@@ -1239,7 +1246,7 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
             return;
         }
         RenderOptions options = new() {
-            atlas = Atlas,
+            atlas = bgAtlas,
             color = color,
             fillAmount = 1f,
             flip = UISpriteFlip.None,
@@ -1254,7 +1261,7 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
         }
         UISpriteRender.RenderSprite(renderData, options);
     }
-    protected virtual UITextureAtlas.SpriteInfo GetBgSprite() => Atlas?[BgSprites.GetSprite(State)];
+    protected virtual UITextureAtlas.SpriteInfo GetBgSprite() => bgAtlas?[BgSprites.GetSprite(State)];
     protected virtual Color32 GetBgActiveColor() => BgSprites.GetColor(State);
     private void RenderText() {
         float num = PixelsToUnits();
@@ -1351,7 +1358,7 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
         }
     }
     private void RenderSelection() {
-        if (string.IsNullOrEmpty(SelectionSprite) || atlas is null || atlas[SelectionSprite] is null) {
+        if (string.IsNullOrEmpty(SelectionSprite) || bgAtlas is null || bgAtlas[SelectionSprite] is null) {
             return;
         }
         float num = PixelsToUnits();
@@ -1397,7 +1404,7 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
         renderData.colors.Add(item5);
         renderData.colors.Add(item5);
         renderData.colors.Add(item5);
-        UITextureAtlas.SpriteInfo spriteInfo = atlas[SelectionSprite];
+        UITextureAtlas.SpriteInfo spriteInfo = bgAtlas[SelectionSprite];
         Rect region = spriteInfo.region;
         float num = region.width / spriteInfo.pixelSize.x;
         float num2 = region.height / spriteInfo.pixelSize.y;
@@ -1407,7 +1414,7 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
         renderData.uvs.Add(new Vector2(region.x + num, region.y + num2));
     }
     private void RenderCursor() {
-        if (string.IsNullOrEmpty(SelectionSprite) || atlas is null) {
+        if (string.IsNullOrEmpty(SelectionSprite) || bgAtlas is null) {
             return;
         }
         float num = PixelsToUnits();
@@ -1439,7 +1446,7 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
         colors.Add(item);
         colors.Add(item);
         colors.Add(item);
-        UITextureAtlas.SpriteInfo spriteInfo = atlas[SelectionSprite];
+        UITextureAtlas.SpriteInfo spriteInfo = bgAtlas[SelectionSprite];
         Rect region = spriteInfo.region;
         uvs.Add(new Vector2(region.x, region.yMax));
         uvs.Add(new Vector2(region.xMax, region.yMax));

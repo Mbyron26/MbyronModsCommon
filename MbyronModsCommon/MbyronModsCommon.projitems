@@ -23,8 +23,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)ModBase\ModBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModBase\ModPatcherBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModBase\ModConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)modbase\Singleton.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\AssemblyUtils.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ModUtils\CodeInstructionExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\CompatibilityCheck.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)modutils\CompatibilityChecker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\DebugUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\KeyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\ModLogger.cs" />
@@ -36,6 +39,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)UI\CustomUIAtlas.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\CustomUICheckBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\CustomUIColor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\CustomUIColorField.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UI\CustomUIColorPicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\CustomUIDropDown.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\CustomUIFont.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)UI\CustomUIButton.cs" />
@@ -152,5 +157,14 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\Resources\RoundedRectangle3.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\Resources\RoundedRectangle4.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\Resources\RoundedRectangle5.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\Resources\Clean.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\Resources\Close.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\Resources\Copy.png" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\Resources\Paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\Resources\ToolButton.png" />
   </ItemGroup>
 </Project>

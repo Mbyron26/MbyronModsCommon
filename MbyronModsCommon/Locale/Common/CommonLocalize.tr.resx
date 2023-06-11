@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AltToChangeAll" xml:space="preserve">
+    <value>Hold Alt to change all values</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>Both</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -136,7 +142,7 @@
     <value>Mod uyumluluk kontrolü</value>
   </data>
   <data name="CompatibilityCheck_Minor" xml:space="preserve">
-    <value>Bu işlev, yalnızca bu modla ilgili uyumluluk sorunlarını algılar. Tüm modların uyumluluğunu kontrol etmek için [Uyumluluk Raporu] modu önerilir.</value>
+    <value>This function only detects compatibility issues related to this mod. To check compatibility for all mods, [Skyve] mod is recommended.</value>
   </data>
   <data name="CompatibilityCheck_SameFunctionality" xml:space="preserve">
     <value>zaten aynı işlevi içerir.</value>
@@ -246,6 +252,12 @@
   <data name="No" xml:space="preserve">
     <value>Hayır</value>
   </data>
+  <data name="OnlyInGame" xml:space="preserve">
+    <value>Only in game</value>
+  </data>
+  <data name="OnlyInUUI" xml:space="preserve">
+    <value>Only in UUI</value>
+  </data>
   <data name="OptionPanel_Advanced" xml:space="preserve">
     <value>Gelişmiş</value>
   </data>
@@ -302,6 +314,12 @@
   </data>
   <data name="ShowControlPanel" xml:space="preserve">
     <value>Kontrol panelini göster</value>
+  </data>
+  <data name="ToolButton" xml:space="preserve">
+    <value>Tool Button</value>
+  </data>
+  <data name="ToolButtonDisplay" xml:space="preserve">
+    <value>Tool button display</value>
   </data>
   <data name="XMLWariningMessageBox_Warning" xml:space="preserve">
     <value>Uyarı! Mod normalde eski yapılandırma verilerini okuyamaz. Artık mod için varsayılan yapılandırma yüklendi. Lütfen oyuna başlamadan önce seçenekler paneline gidin ve Ayarlarınızı yapılandırın.</value>

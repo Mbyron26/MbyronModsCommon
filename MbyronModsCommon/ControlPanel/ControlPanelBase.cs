@@ -36,7 +36,7 @@ public abstract class ControlPanelBase<TypeMod, TypePanel> : CustomUIPanel where
     protected virtual void SetPosition() {
         if (PanelPosition == Vector2.zero) {
             Vector2 vector = GetUIView().GetScreenResolution();
-            var x = vector.x - PanelWidth - 360;
+            var x = vector.x - PanelWidth - 200;
             PanelPosition = relativePosition = new Vector3(x, 80);
         } else {
             relativePosition = PanelPosition;
@@ -44,7 +44,7 @@ public abstract class ControlPanelBase<TypeMod, TypePanel> : CustomUIPanel where
     }
     protected virtual void AddButtons() {
         closeButton = AddUIComponent<CustomUIButton>();
-        closeButton.Atlas = CustomUIAtlas.MbyronModsAtlas;
+        closeButton.BgAtlas = CustomUIAtlas.MbyronModsAtlas;
         closeButton.size = ButtonSize;
         closeButton.OnBgSprites.SetSprites(CustomUIAtlas.CloseButton);
         closeButton.OnBgSprites.SetColors(CustomUIColor.White, CustomUIColor.OffWhite, new Color32(180, 180, 180, 255), CustomUIColor.White, CustomUIColor.White);

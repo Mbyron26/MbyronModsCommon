@@ -4,7 +4,9 @@ using ColossalFramework.UI;
 namespace MbyronModsCommon.UI;
 
 public abstract class CustomUITextComponent : UIComponent {
-    protected UITextureAtlas atlas;
+    protected UITextureAtlas textAtlas;
+    protected UITextureAtlas bgAtlas;
+    protected UITextureAtlas fgAtlas;
     protected UIRenderData textRenderData;
     protected UIFont font;
     protected string text = string.Empty;
@@ -34,19 +36,53 @@ public abstract class CustomUITextComponent : UIComponent {
     protected UIVerticalAlignment textVerticalAlignment = UIVerticalAlignment.Middle;
     protected bool wordWrap;
 
-    public UITextureAtlas Atlas {
+    public UITextureAtlas TextAtlas {
         get {
-            if (atlas is null) {
+            if (textAtlas is null) {
                 UIView uiview = GetUIView();
                 if (uiview is not null) {
-                    atlas = uiview.defaultAtlas;
+                    textAtlas = uiview.defaultAtlas;
                 }
             }
-            return atlas;
+            return textAtlas;
         }
         set {
-            if (!Equals(value, atlas)) {
-                atlas = value;
+            if (!Equals(value, textAtlas)) {
+                textAtlas = value;
+                Invalidate();
+            }
+        }
+    }
+    public UITextureAtlas BgAtlas {
+        get {
+            if (bgAtlas is null) {
+                UIView uiview = GetUIView();
+                if (uiview is not null) {
+                    bgAtlas = uiview.defaultAtlas;
+                }
+            }
+            return bgAtlas;
+        }
+        set {
+            if (!Equals(value, bgAtlas)) {
+                bgAtlas = value;
+                Invalidate();
+            }
+        }
+    }
+    public UITextureAtlas FgAtlas {
+        get {
+            if (fgAtlas is null) {
+                UIView uiview = GetUIView();
+                if (uiview is not null) {
+                    fgAtlas = uiview.defaultAtlas;
+                }
+            }
+            return fgAtlas;
+        }
+        set {
+            if (!Equals(value, fgAtlas)) {
+                fgAtlas = value;
                 Invalidate();
             }
         }

@@ -52,9 +52,9 @@ public abstract class MessageBoxBase : CustomUIPanel {
     protected AutoSizeUIScrollablePanel contentPanel;
     protected CustomUIPanel buttonPanel;
     protected UIDragHandle dragBar;
-    protected UILabel title;
+    protected CustomUILabel title;
 
-    public string TitleText { set => title.text = value; }
+    public string TitleText { set => title.Text = value; }
     protected CustomUIScrollablePanel MainPanel => contentPanel.MainPanel;
 
     public MessageBoxBase() {
@@ -75,21 +75,35 @@ public abstract class MessageBoxBase : CustomUIPanel {
         contentPanel.relativePosition = new Vector2(0f, MessageBoxParm.DragBarHeight);
         buttonPanel.relativePosition = new Vector2(0f, MessageBoxParm.DragBarHeight + contentPanel.height);
     }
+
+    public CustomUILabel AddLabelInMainPanel(string text) {
+        var label = MainPanel.AddUIComponent<CustomUILabel>();
+        label.AutoSize = false;
+        label.AutoHeight = true;
+        label.width = MessageBoxParm.ComponentWidth;
+        label.TextHorizontalAlignment = UIHorizontalAlignment.Center;
+        label.WordWrap = true;
+        label.Text = text;
+        return label;
+    }
+
     protected void InitComponets() {
+        title = AddUIComponent<CustomUILabel>();
+        title.AutoSize = false;
+        title.size = new Vector2(MessageBoxParm.Width, MessageBoxParm.DragBarHeight);
+        title.TextHorizontalAlignment = UIHorizontalAlignment.Center;
+        title.TextVerticalAlignment = UIVerticalAlignment.Middle;
+        title.TextScale = 1.3f;
+        title.TextPadding = new RectOffset(0, 0, 16, 0);
+        title.Font = CustomUIFontHelper.SemiBold;
+        //title.EventTextChanged += (c, v) => {
+        //    title.CenterToParent();
+        //};
+        title.relativePosition = Vector2.zero;
+
         dragBar = AddUIComponent<UIDragHandle>();
         dragBar.size = new Vector2(MessageBoxParm.Width, MessageBoxParm.DragBarHeight);
         dragBar.relativePosition = Vector2.zero;
-
-        title = dragBar.AddUIComponent<UILabel>();
-        title.textAlignment = UIHorizontalAlignment.Center;
-        title.verticalAlignment = UIVerticalAlignment.Middle;
-        title.textScale = 1.3f;
-        title.autoHeight = true;
-        title.padding = new RectOffset(0, 0, 16, 0);
-        title.font = CustomUIFontHelper.SemiBold;
-        title.eventTextChanged += (c, v) => {
-            title.CenterToParent();
-        };
 
         contentPanel = AddUIComponent<AutoSizeUIScrollablePanel>();
         contentPanel.Size = new Vector2(MessageBoxParm.Width, 200);

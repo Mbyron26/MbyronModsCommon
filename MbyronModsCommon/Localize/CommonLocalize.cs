@@ -6,6 +6,16 @@ namespace MbyronModsCommon
 		public static MbyronModsCommon.LocalizeManager LocaleManager {get;} = new MbyronModsCommon.LocalizeManager("CommonLocalize", typeof(CommonLocalize).Assembly);
 
 		/// <summary>
+		/// Hold Alt to change all values
+		/// </summary>
+		public static string AltToChangeAll => LocaleManager.GetString("AltToChangeAll", Culture);
+
+		/// <summary>
+		/// Both
+		/// </summary>
+		public static string Both => LocaleManager.GetString("Both", Culture);
+
+		/// <summary>
 		/// Cancel
 		/// </summary>
 		public static string Cancel => LocaleManager.GetString("Cancel", Culture);
@@ -221,6 +231,16 @@ namespace MbyronModsCommon
 		public static string No => LocaleManager.GetString("No", Culture);
 
 		/// <summary>
+		/// Only in game
+		/// </summary>
+		public static string OnlyInGame => LocaleManager.GetString("OnlyInGame", Culture);
+
+		/// <summary>
+		/// Only in UUI
+		/// </summary>
+		public static string OnlyInUUI => LocaleManager.GetString("OnlyInUUI", Culture);
+
+		/// <summary>
 		/// Advanced
 		/// </summary>
 		public static string OptionPanel_Advanced => LocaleManager.GetString("OptionPanel_Advanced", Culture);
@@ -314,6 +334,16 @@ namespace MbyronModsCommon
 		/// Show control panel
 		/// </summary>
 		public static string ShowControlPanel => LocaleManager.GetString("ShowControlPanel", Culture);
+
+		/// <summary>
+		/// Tool Button
+		/// </summary>
+		public static string ToolButton => LocaleManager.GetString("ToolButton", Culture);
+
+		/// <summary>
+		/// Tool button display
+		/// </summary>
+		public static string ToolButtonDisplay => LocaleManager.GetString("ToolButtonDisplay", Culture);
 
 		/// <summary>
 		/// Warning! Mod cannot normally read the old configuration data. Now default configuration has been loa

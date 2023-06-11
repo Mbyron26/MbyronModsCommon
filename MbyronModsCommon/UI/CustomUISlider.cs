@@ -76,7 +76,6 @@ public class CustomUISlider : UIComponent {
     public float RawValue {
         get => rawValue;
         set {
-
             value = Mathf.Max(MinValue, Mathf.Min(MaxValue, value)).Quantize(StepSize);
             if (!Mathf.Approximately(value, rawValue)) {
                 rawValue = value;
@@ -318,7 +317,6 @@ public class CustomUISlider : UIComponent {
         if (canWheel) {
             p.Use();
             var typeRate = GetSteppingRate();
-            ExternalLogger.Log(p.wheelDelta.ToString());
             if (p.wheelDelta < 0) {
                 RawValue = ValueDecrease(typeRate);
             } else {
@@ -408,11 +406,11 @@ public class CustomUISlider : UIComponent {
     private void GetBoundingPoints(bool convertToWorld, out Vector3 start, out Vector3 end) {
         Vector3 vector = pivot.TransformToUpperLeft(size, arbitraryPivotOffset);
         if (Orientation == UIOrientation.Vertical) {
-            end = new Vector3(vector.x + size.x * 0.5f, vector.y);
-            start = end - new Vector3(0f, size.y);
+            end = new Vector3(vector.x + size.x * 0.5f, vector.y - ThumbPadding.top);
+            start = end - new Vector3(0f, size.y - ThumbPadding.vertical);
         } else {
-            start = new Vector3(vector.x, vector.y - size.y * 0.5f);
-            end = start + new Vector3(size.x, 0f);
+            start = new Vector3(vector.x + ThumbPadding.left, vector.y - size.y * 0.5f);
+            end = start + new Vector3(size.x - ThumbPadding.horizontal, 0f);
         }
         if (convertToWorld) {
             float d = PixelsToUnits();
@@ -425,8 +423,6 @@ public class CustomUISlider : UIComponent {
     protected virtual void UpdateValueIndicators(float rawValue) {
         if (ThumbObject != null) {
             GetBoundingPoints(true, out Vector3 vector, out Vector3 a);
-            vector.x += ThumbPadding.left * PixelsToUnits();
-            a.x -= ThumbPadding.right * PixelsToUnits();
             Vector3 vector2 = a - vector;
             float d = (rawValue - MinValue) / (MaxValue - MinValue) * vector2.magnitude;
             Vector3 b = ThumbOffset * PixelsToUnits();

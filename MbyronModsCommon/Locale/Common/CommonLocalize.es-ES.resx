@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AltToChangeAll" xml:space="preserve">
+    <value>Hold Alt to change all values</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>Both</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Cancelar</value>
   </data>
   <data name="ChangeLog" xml:space="preserve">
     <value>Registro de cambios</value>
@@ -136,7 +142,7 @@
     <value>Verificación de compatibilidad del mod</value>
   </data>
   <data name="CompatibilityCheck_Minor" xml:space="preserve">
-    <value>Esta función sólo detecta problemas de compatibilidad relacionados con este mod. Para comprobar la compatibilidad de todos los mods, se recomienda el mod [Compatibility Report].</value>
+    <value>This function only detects compatibility issues related to this mod. To check compatibility for all mods, [Skyve] mod is recommended.</value>
   </data>
   <data name="CompatibilityCheck_SameFunctionality" xml:space="preserve">
     <value>ya incluye la misma funcionalidad.</value>
@@ -154,7 +160,7 @@
     <value>Idioma</value>
   </data>
   <data name="Language_cs" xml:space="preserve">
-    <value>Czech</value>
+    <value>Checo</value>
   </data>
   <data name="Language_de" xml:space="preserve">
     <value>Alemán</value>
@@ -181,7 +187,7 @@
     <value>Coreano</value>
   </data>
   <data name="Language_ms" xml:space="preserve">
-    <value>Malay</value>
+    <value>Malayo</value>
   </data>
   <data name="Language_nl" xml:space="preserve">
     <value>Neerlandés</value>
@@ -196,10 +202,10 @@
     <value>Ruso</value>
   </data>
   <data name="Language_sk" xml:space="preserve">
-    <value>Slovak</value>
+    <value>Eslovaco</value>
   </data>
   <data name="Language_th" xml:space="preserve">
-    <value>Thai</value>
+    <value>Tailandés</value>
   </data>
   <data name="Language_tr" xml:space="preserve">
     <value>Turco</value>
@@ -217,7 +223,7 @@
     <value>Ajustado</value>
   </data>
   <data name="LogMessageBox_Attention" xml:space="preserve">
-    <value>Attention</value>
+    <value>Atención</value>
   </data>
   <data name="LogMessageBox_Fixed" xml:space="preserve">
     <value>Arreglado</value>
@@ -229,7 +235,7 @@
     <value>Quitado</value>
   </data>
   <data name="LogMessageBox_Translation" xml:space="preserve">
-    <value>Translation</value>
+    <value>Traducción</value>
   </data>
   <data name="LogMessageBox_Updated" xml:space="preserve">
     <value>Actualizado</value>
@@ -245,6 +251,12 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>No</value>
+  </data>
+  <data name="OnlyInGame" xml:space="preserve">
+    <value>Only in game</value>
+  </data>
+  <data name="OnlyInUUI" xml:space="preserve">
+    <value>Only in UUI</value>
   </data>
   <data name="OptionPanel_Advanced" xml:space="preserve">
     <value>Avanzado</value>
@@ -295,7 +307,7 @@
     <value>Restauración exitosa.</value>
   </data>
   <data name="ResetModWarning" xml:space="preserve">
-    <value>Are you sure you want to reset the configuration of the mod?</value>
+    <value>¿Está seguro de que quiere grabar la configuración del mod?</value>
   </data>
   <data name="ScrollWheel" xml:space="preserve">
     <value>Desplazar la rueda del ratón para cambiar,
@@ -303,6 +315,12 @@ Mayús x10, Ctrl x0.1</value>
   </data>
   <data name="ShowControlPanel" xml:space="preserve">
     <value>Mostrar panel de control</value>
+  </data>
+  <data name="ToolButton" xml:space="preserve">
+    <value>Tool Button</value>
+  </data>
+  <data name="ToolButtonDisplay" xml:space="preserve">
+    <value>Tool button display</value>
   </data>
   <data name="XMLWariningMessageBox_Warning" xml:space="preserve">
     <value>¡Atención! El mod normalmente no puede leer los datos antiguos de configuración. Han sido cargadas las configuraciones por defecto del mod. Por favor ingrese al panel de opciones y configúrelo antes de empezar el juego.</value>

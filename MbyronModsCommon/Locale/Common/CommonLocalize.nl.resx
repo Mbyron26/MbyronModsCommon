@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AltToChangeAll" xml:space="preserve">
+    <value>Hold Alt to change all values</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>Both</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Annuleren</value>
   </data>
@@ -136,7 +142,7 @@
     <value>Mod compatibiliteitscontrole</value>
   </data>
   <data name="CompatibilityCheck_Minor" xml:space="preserve">
-    <value>Deze functie detecteert alleen compatibiliteitsproblemen met betrekking tot deze mod. Om de compatibiliteit van alle mods te controleren, wordt de mod [Compatibility Report] aanbevolen.</value>
+    <value>This function only detects compatibility issues related to this mod. To check compatibility for all mods, [Skyve] mod is recommended.</value>
   </data>
   <data name="CompatibilityCheck_SameFunctionality" xml:space="preserve">
     <value>bevat al dezelfde functionaliteit.</value>
@@ -246,6 +252,12 @@
   <data name="No" xml:space="preserve">
     <value>Nee</value>
   </data>
+  <data name="OnlyInGame" xml:space="preserve">
+    <value>Only in game</value>
+  </data>
+  <data name="OnlyInUUI" xml:space="preserve">
+    <value>Only in UUI</value>
+  </data>
   <data name="OptionPanel_Advanced" xml:space="preserve">
     <value>Geavanceerd</value>
   </data>
@@ -302,6 +314,12 @@
   </data>
   <data name="ShowControlPanel" xml:space="preserve">
     <value>Bedieningsbalk weergeven</value>
+  </data>
+  <data name="ToolButton" xml:space="preserve">
+    <value>Tool Button</value>
+  </data>
+  <data name="ToolButtonDisplay" xml:space="preserve">
+    <value>Tool button display</value>
   </data>
   <data name="XMLWariningMessageBox_Warning" xml:space="preserve">
     <value>Waarschuwing! De mod kan de oude configuratiegegevens niet lezen. De standaardconfiguratie is nu geladen voor de mod. Ga naar het optiescherm en configureer je instellingen voordat je begint met het spel.</value>

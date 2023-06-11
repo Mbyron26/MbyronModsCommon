@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AltToChangeAll" xml:space="preserve">
+    <value>按住 Alt 键以更改所有值</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>同时在游戏内和 Unified UI 内显示</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>取消</value>
   </data>
@@ -136,7 +142,7 @@
     <value>模组兼容性检查</value>
   </data>
   <data name="CompatibilityCheck_Minor" xml:space="preserve">
-    <value>这个功能只检查本模组相关的兼容性问题。建议使用 [Compatibility Report] 模组来检查所有模组的兼容性。</value>
+    <value>这个功能只检查与本模组相关的兼容性问题。建议使用 [Skyve] 模组来检查所有模组的兼容性。</value>
   </data>
   <data name="CompatibilityCheck_SameFunctionality" xml:space="preserve">
     <value>已具有相同功能。</value>
@@ -246,6 +252,12 @@
   <data name="No" xml:space="preserve">
     <value>否</value>
   </data>
+  <data name="OnlyInGame" xml:space="preserve">
+    <value>仅在游戏内单独显示</value>
+  </data>
+  <data name="OnlyInUUI" xml:space="preserve">
+    <value>仅在 Unified UI 内显示</value>
+  </data>
   <data name="OptionPanel_Advanced" xml:space="preserve">
     <value>高级</value>
   </data>
@@ -265,7 +277,7 @@
     <value>常规选项</value>
   </data>
   <data name="OptionPanel_Hotkeys" xml:space="preserve">
-    <value>热键</value>
+    <value>快捷键</value>
   </data>
   <data name="OptionPanel_IsDisabled" xml:space="preserve">
     <value>已关闭</value>
@@ -302,6 +314,12 @@
   </data>
   <data name="ShowControlPanel" xml:space="preserve">
     <value>显示控制面板</value>
+  </data>
+  <data name="ToolButton" xml:space="preserve">
+    <value>模组按钮</value>
+  </data>
+  <data name="ToolButtonDisplay" xml:space="preserve">
+    <value>模组面板按钮的显示位置</value>
   </data>
   <data name="XMLWariningMessageBox_Warning" xml:space="preserve">
     <value>警告！模组无法正常读取旧配置数据，现已加载默认配置，在开始游戏前，请前往模组选项面板配置设置。</value>

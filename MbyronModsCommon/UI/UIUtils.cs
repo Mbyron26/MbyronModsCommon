@@ -41,9 +41,8 @@ public class UIUtils {
             byte[] array = new byte[s.Length];
             s.Read(array, 0, array.Length);
             return new Image(array).CreateTexture();
-        }
-        catch (Exception e) {
-            ExternalLogger.Log($"Couldn't load texture from assembly, file name:{fileName}, detial:{e.Message}");
+        } catch (Exception e) {
+            ExternalLogger.Exception($"Couldn't load texture from assembly, file name:{fileName}", e);
             return null;
         }
     }
@@ -68,6 +67,16 @@ public class UIUtils {
         for (int i = 0; i < atlases.Length; i++) {
             yield return atlases[i];
         }
+    }
+
+    public static Texture2D CreateTexture(int width, int height, Color color) {
+        var texture = new Texture2D(width, height);
+        for (var i = 0; i < width; i += 1) {
+            for (var j = 0; j < height; j += 1)
+                texture.SetPixel(i, j, color);
+        }
+        texture.Apply();
+        return texture;
     }
 }
 

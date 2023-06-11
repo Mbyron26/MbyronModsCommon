@@ -11,7 +11,7 @@ public class CustomUIToggleButton : CustomUIButtonBase {
         var button = parent.AddUIComponent<CustomUIToggleButton>();
         if (opStyle)
             button.SetOPStyle();
-        else 
+        else
             button.SetCPStyle();
         button.autoSize = false;
         button.size = new Vector2(40, 24);
@@ -20,7 +20,7 @@ public class CustomUIToggleButton : CustomUIButtonBase {
         return button;
     }
     public void SetOPStyle() {
-        atlas = CustomUIAtlas.MbyronModsAtlas;
+        bgAtlas = fgAtlas = CustomUIAtlas.MbyronModsAtlas;
         renderFg = true;
         offBgSprites.SetSprites(CustomUIAtlas.RoundedRectangle5);
         OffBgSprites.SetColors(CustomUIColor.OPButtonNormal, CustomUIColor.OPButtonHovered, CustomUIColor.OPButtonPressed, CustomUIColor.OPButtonFocused, CustomUIColor.OPButtonDisabled);
@@ -33,7 +33,7 @@ public class CustomUIToggleButton : CustomUIButtonBase {
         base.SetStyle();
     }
     public void SetCPStyle() {
-        atlas = CustomUIAtlas.MbyronModsAtlas;
+        bgAtlas = fgAtlas = CustomUIAtlas.MbyronModsAtlas;
         renderFg = true;
         offBgSprites.SetSprites(CustomUIAtlas.RoundedRectangle5);
         OffBgSprites.SetColors(CustomUIColor.CPButtonNormal, CustomUIColor.CPButtonHovered, CustomUIColor.CPButtonPressed, CustomUIColor.CPButtonFocused, CustomUIColor.CPButtonDisabled);
@@ -53,13 +53,13 @@ public class CustomUITabButton : CustomUIButtonBase {
     public CustomUITabButton() => buttonType = UIButtonType.Tab;
 
     public void SetDefaultControlPanelStyle() {
-        atlas = CustomUIAtlas.MbyronModsAtlas;
+        bgAtlas = fgAtlas = CustomUIAtlas.MbyronModsAtlas;
         onBgSprites.SetSprites(sprite, sprite, sprite, sprite, sprite);
         onBgSprites.SetColors(CustomUIColor.CPPrimaryBg, CustomUIColor.CPButtonHovered, CustomUIColor.CPButtonPressed, CustomUIColor.GreenNormal, CustomUIColor.CPButtonDisabled);
         SetStyle();
     }
     public void SetDefaultOptionPanelStyle() {
-        atlas = CustomUIAtlas.MbyronModsAtlas;
+        bgAtlas = fgAtlas = CustomUIAtlas.MbyronModsAtlas;
         onBgSprites.SetSprites(sprite, sprite, sprite, sprite, sprite);
         onBgSprites.SetColors(CustomUIColor.OPPrimaryBg, CustomUIColor.OPButtonNormal, CustomUIColor.OPPrimaryBg, CustomUIColor.BlueNormal, CustomUIColor.OPButtonDisabled);
         SetStyle();
@@ -86,13 +86,13 @@ public class CustomUIButton : CustomUIButtonBase {
         return button;
     }
     public void SetControlPanelStyle() {
-        atlas = CustomUIAtlas.MbyronModsAtlas;
+        bgAtlas = fgAtlas = CustomUIAtlas.MbyronModsAtlas;
         onBgSprites.SetSprites(CustomUIAtlas.RoundedRectangle3);
         onBgSprites.SetColors(CustomUIColor.CPButtonNormal, CustomUIColor.CPButtonHovered, CustomUIColor.CPButtonPressed, CustomUIColor.CPButtonFocused, CustomUIColor.CPButtonDisabled);
         SetStyle();
     }
     public void SetOptionPanelStyle() {
-        atlas = CustomUIAtlas.MbyronModsAtlas;
+        bgAtlas = fgAtlas = CustomUIAtlas.MbyronModsAtlas;
         onBgSprites.SetSprites(CustomUIAtlas.RoundedRectangle3);
         onBgSprites.SetColors(CustomUIColor.OPButtonNormal, CustomUIColor.OPButtonHovered, CustomUIColor.OPButtonPressed, CustomUIColor.OPButtonFocused, CustomUIColor.OPButtonDisabled);
         SetStyle();
@@ -561,10 +561,10 @@ public abstract class CustomUIButtonBase : CustomUITextComponent {
         Invalidate();
     }
     protected virtual void SetDefaultSize(string spriteName) {
-        if (atlas is null) {
+        if (bgAtlas is null) {
             return;
         }
-        UITextureAtlas.SpriteInfo spriteInfo = atlas[spriteName];
+        UITextureAtlas.SpriteInfo spriteInfo = bgAtlas[spriteName];
         if (m_Size == Vector2.zero && spriteInfo != null) {
             size = spriteInfo.pixelSize;
         }
@@ -580,10 +580,8 @@ public abstract class CustomUIButtonBase : CustomUITextComponent {
         }
         return base.CalculateMinimumSize();
     }
+
     protected override void OnRebuildRenderData() {
-        if (Atlas is null) {
-            return;
-        }
         RenderBgSprite();
         RenderFgSprite();
         RenderText();
@@ -599,10 +597,10 @@ public abstract class CustomUIButtonBase : CustomUITextComponent {
             textRenderData = UIRenderData.Obtain();
             m_RenderData.Add(textRenderData);
         }
-        textRenderData.material = Atlas.material;
+        textRenderData.material = TextAtlas.material;
         using UIFontRenderer uifontRenderer = ObtainTextRenderer();
         if (uifontRenderer is UIDynamicFont.DynamicFontRenderer dynamicFontRenderer) {
-            dynamicFontRenderer.spriteAtlas = Atlas;
+            dynamicFontRenderer.spriteAtlas = TextAtlas;
             dynamicFontRenderer.spriteBuffer = textRenderData;
         }
         uifontRenderer.Render(Text, textRenderData);
@@ -670,28 +668,25 @@ public abstract class CustomUIButtonBase : CustomUITextComponent {
     }
     protected override Color32 GetGradientBottomColorForState() => isEnabled ? (State != SpriteState.Disabled ? GradientBottomDisabledColor : GradientBottomNormalColor) : GradientBottomDisabledColor;
     protected virtual void RenderFgSprite() {
-        if (!RenderFg) {
-            return;
-        }
-        if (Atlas is null) {
-            return;
-        }
-        var fgSprite = GetFgSprite();
-        if (fgSprite is null) {
-            return;
-        }
         if (fgRenderData is not null) {
             fgRenderData.Clear();
         } else {
             fgRenderData = UIRenderData.Obtain();
             m_RenderData.Add(fgRenderData);
         }
-        fgRenderData.material = Atlas.material;
+        if (!RenderFg|| fgAtlas is null) {
+            return;
+        }
+        var fgSprite = GetFgSprite();
+        if (fgSprite is null) {
+            return;
+        }
+        fgRenderData.material = fgAtlas.material;
         Vector2 foregroundRenderSize = GetForegroundRenderSize(GetFgSprite());
         Vector2 foregroundRenderOffset = GetForegroundRenderOffset(foregroundRenderSize);
         Color32 color = ApplyOpacity(GetFgActiveColor());
         RenderOptions options = new() {
-            atlas = atlas,
+            atlas = fgAtlas,
             color = color,
             fillAmount = 1f,
             flip = UISpriteFlip.None,
@@ -707,23 +702,23 @@ public abstract class CustomUIButtonBase : CustomUITextComponent {
         UISpriteRender.RenderSprite(fgRenderData, options);
     }
     protected virtual void RenderBgSprite() {
-        if (Atlas is null) {
+        if(bgRenderData is null) {
+            bgRenderData = UIRenderData.Obtain();
+            m_RenderData.Add(bgRenderData);
+        } else {
+            bgRenderData.Clear();
+        }
+        if (bgAtlas is null) {
             return;
         }
         UITextureAtlas.SpriteInfo sprite = GetBgSprite();
         if (sprite is null) {
             return;
         }
-        if (bgRenderData is not null) {
-            bgRenderData.Clear();
-        } else {
-            bgRenderData = UIRenderData.Obtain();
-            m_RenderData.Add(bgRenderData);
-        }
-        bgRenderData.material = Atlas.material;
+        bgRenderData.material = bgAtlas.material;
         Color32 color = ApplyOpacity(GetBgActiveColor());
         RenderOptions options = new() {
-            atlas = atlas,
+            atlas = bgAtlas,
             color = color,
             fillAmount = 1f,
             flip = UISpriteFlip.None,
@@ -741,32 +736,32 @@ public abstract class CustomUIButtonBase : CustomUITextComponent {
     protected virtual Color32 GetFgActiveColor() => (buttonType == UIButtonType.Toggle) ? (IsOn ? OnFgSprites.GetColor(State) : OffFgSprites.GetColor(State)) : OnFgSprites.GetColor(State);
     protected virtual Color32 GetBgActiveColor() => (buttonType == UIButtonType.Toggle) ? (IsOn ? OnBgSprites.GetColor(State) : OffBgSprites.GetColor(State)) : OnBgSprites.GetColor(State);
     protected virtual UITextureAtlas.SpriteInfo GetFgSprite() {
-        if (atlas is null) {
+        if (fgAtlas is null) {
             return null;
         }
         UITextureAtlas.SpriteInfo spriteInfo;
         if (buttonType == UIButtonType.Toggle) {
-            spriteInfo = IsOn ? atlas[OnFgSprites.GetSprite(State)] : atlas[OffFgSprites.GetSprite(State)];
+            spriteInfo = IsOn ? fgAtlas[OnFgSprites.GetSprite(State)] : fgAtlas[OffFgSprites.GetSprite(State)];
         } else {
-            spriteInfo = atlas[OnFgSprites.GetSprite(State)];
+            spriteInfo = fgAtlas[OnFgSprites.GetSprite(State)];
         }
         if (spriteInfo == null) {
-            spriteInfo = atlas[OnFgNormalSprite];
+            spriteInfo = fgAtlas[OnFgNormalSprite];
         }
         return spriteInfo;
     }
     protected virtual UITextureAtlas.SpriteInfo GetBgSprite() {
-        if (atlas is null) {
+        if (bgAtlas is null) {
             return null;
         }
         UITextureAtlas.SpriteInfo spriteInfo;
         if (buttonType == UIButtonType.Toggle) {
-            spriteInfo = IsOn ? atlas[OnBgSprites.GetSprite(State)] : atlas[OffBgSprites.GetSprite(State)];
+            spriteInfo = IsOn ? bgAtlas[OnBgSprites.GetSprite(State)] : bgAtlas[OffBgSprites.GetSprite(State)];
         } else {
-            spriteInfo = atlas[OnBgSprites.GetSprite(State)];
+            spriteInfo = bgAtlas[OnBgSprites.GetSprite(State)];
         }
         if (spriteInfo == null) {
-            spriteInfo = atlas[OnBgNormalSprite];
+            spriteInfo = bgAtlas[OnBgNormalSprite];
         }
         return spriteInfo;
     }

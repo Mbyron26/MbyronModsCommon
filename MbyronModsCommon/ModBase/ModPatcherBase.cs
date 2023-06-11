@@ -4,7 +4,7 @@ using HarmonyLib;
 using System;
 using System.Reflection;
 
-public abstract class ModPatcherBase<TypeMod, TypeConfig> : ModBase<TypeMod, TypeConfig> where TypeMod : ModBase<TypeMod, TypeConfig> where TypeConfig : ModConfig<TypeConfig>, new() {
+public abstract class ModPatcherBase<TypeMod, TypeConfig> : ModBase<TypeMod, TypeConfig> where TypeMod : ModBase<TypeMod, TypeConfig> where TypeConfig : SingletonConfig<TypeConfig>, new() {
     public virtual string HarmonyID => $"Mbyron26.{RawName}";
     public Harmony Harmony => new(HarmonyID);
     public bool IsPatched { get; private set; }

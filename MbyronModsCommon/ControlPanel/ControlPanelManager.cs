@@ -9,6 +9,9 @@ public class ControlPanelManager<TypeMod, TypePanel> where TypeMod : IMod where 
     private static TypePanel panel;
 
     public static event Action<bool> EventOnVisibleChanged;
+    public static event Action<TypePanel> EventPanelCreated;
+    public static event Action<TypePanel> EventPanelClosing;
+
     public static bool IsVisible {
         get => isVisible;
         private set {
@@ -43,12 +46,14 @@ public class ControlPanelManager<TypeMod, TypePanel> where TypeMod : IMod where 
         panelGameObject.transform.parent = UIView.GetAView().transform;
         panel = panelGameObject.AddComponent<TypePanel>();
         panel.Show();
+        EventPanelCreated?.Invoke(panel);
         IsVisible = true;
     }
     public static void Close() {
         if (panelGameObject is null)
             return;
         SingletonMod<TypeMod>.Instance.SaveConfig();
+        EventPanelClosing?.Invoke(panel);
         UnityEngine.Object.Destroy(panel);
         UnityEngine.Object.Destroy(panelGameObject);
         panel = null;

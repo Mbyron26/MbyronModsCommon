@@ -18,7 +18,7 @@ public class CustomUIDropDown : CustomUIDropDownBase<CustomUIListBox> {
         dropDown.EventPopupAdded += (dropDwon, listBox) => {
             listBox.canFocus = true;
             listBox.TextScale = 0.8f;
-            listBox.Atlas = CustomUIAtlas.MbyronModsAtlas;
+            listBox.TextAtlas = listBox.FgAtlas = listBox.BgAtlas = CustomUIAtlas.MbyronModsAtlas;
             listBox.BgSprite = CustomUIAtlas.RoundedRectangle2;
             listBox.BgNormalColor = CustomUIColor.CPButtonNormal;
             listBox.ItemHoverSprite = CustomUIAtlas.RoundedRectangle2;
@@ -30,7 +30,7 @@ public class CustomUIDropDown : CustomUIDropDownBase<CustomUIListBox> {
             listBox.ItemHeight = (int)dropDwon.height;
             listBox.TextHorizontalAlignment = UIHorizontalAlignment.Left;
         };
-        dropDown.atlas = CustomUIAtlas.MbyronModsAtlas;
+        dropDown.TextAtlas = dropDown.FgAtlas = dropDown.BgAtlas = CustomUIAtlas.MbyronModsAtlas;
         dropDown.bgSprites.SetSprites(CustomUIAtlas.RoundedRectangle2);
         dropDown.bgSprites.SetColors(CustomUIColor.CPButtonNormal, CustomUIColor.CPButtonHovered, CustomUIColor.CPButtonPressed, CustomUIColor.CPButtonFocused, CustomUIColor.CPButtonDisabled);
         dropDown.FgSprites.SetSprites(CustomUIAtlas.ArrowDown);
@@ -55,7 +55,7 @@ public class CustomUIDropDown : CustomUIDropDownBase<CustomUIListBox> {
         dropDown.TriggerButton = dropDown;
         dropDown.EventPopupAdded += (dropDwon, listBox) => {
             listBox.canFocus = true;
-            listBox.Atlas = CustomUIAtlas.MbyronModsAtlas;
+            listBox.TextAtlas = listBox.FgAtlas = listBox.BgAtlas = CustomUIAtlas.MbyronModsAtlas;
             listBox.BgSprite = CustomUIAtlas.RoundedRectangle3;
             listBox.BgNormalColor = CustomUIColor.OPButtonNormal;
             listBox.ItemHoverSprite = CustomUIAtlas.RoundedRectangle3;
@@ -67,7 +67,7 @@ public class CustomUIDropDown : CustomUIDropDownBase<CustomUIListBox> {
             listBox.ItemHeight = (int)dropDwon.height;
             listBox.TextHorizontalAlignment = UIHorizontalAlignment.Left;
         };
-        dropDown.atlas = CustomUIAtlas.MbyronModsAtlas;
+        dropDown.TextAtlas = dropDown.FgAtlas = dropDown.BgAtlas = CustomUIAtlas.MbyronModsAtlas;
         dropDown.bgSprites.SetSprites(CustomUIAtlas.RoundedRectangle3);
         dropDown.bgSprites.SetColors(CustomUIColor.OPButtonNormal, CustomUIColor.OPButtonHovered, CustomUIColor.OPButtonPressed, CustomUIColor.OPButtonFocused, CustomUIColor.OPButtonDisabled);
         dropDown.FgSprites.SetSprites(CustomUIAtlas.ArrowDown);
@@ -412,7 +412,7 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
         base.OnMouseWheel(p);
     }
     protected override void OnKeyDown(UIKeyEventParameter p) {
-        if(p.keycode == KeyCode.Escape) {
+        if (p.keycode == KeyCode.Escape) {
             Unfocus();
         }
         if (builtinKeyNavigation) {
@@ -512,7 +512,7 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
     }
 
     protected override void OnRebuildRenderData() {
-        if (atlas == null || Font == null || !Font.isValid) {
+        if (Font == null || !Font.isValid) {
             return;
         }
         RenderBgSprite();
@@ -523,7 +523,7 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
         if (!RenderFg) {
             return;
         }
-        if (Atlas is null) {
+        if (fgAtlas is null) {
             return;
         }
         var spriteInfo = GetFgSprite();
@@ -536,7 +536,7 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
             fgRenderData = UIRenderData.Obtain();
             m_RenderData.Add(fgRenderData);
         }
-        fgRenderData.material = Atlas.material;
+        fgRenderData.material = fgAtlas.material;
         Color32 color = ApplyOpacity(GetFgActiveColor());
         Vector2 foregroundRenderSize = GetForegroundRenderSize(GetFgSprite());
         Vector2 foregroundRenderOffset = GetForegroundRenderOffset(foregroundRenderSize);
@@ -544,7 +544,7 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
             return;
         }
         RenderOptions options = new() {
-            atlas = Atlas,
+            atlas = fgAtlas,
             color = color,
             fillAmount = 1f,
             flip = UISpriteFlip.None,
@@ -599,13 +599,13 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
         }
         return vector;
     }
-    protected virtual UITextureAtlas.SpriteInfo GetFgSprite() => Atlas?[FgSprites.GetSprite(State)];
+    protected virtual UITextureAtlas.SpriteInfo GetFgSprite() => fgAtlas?[FgSprites.GetSprite(State)];
     protected virtual Color32 GetFgActiveColor() => FgSprites.GetColor(State);
     protected virtual void RenderBgSprite() {
         if (!RenderBg) {
             return;
         }
-        if (Atlas is null) {
+        if (bgAtlas is null) {
             return;
         }
         var spriteInfo = GetBgSprite();
@@ -618,13 +618,13 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
             bgRenderData = UIRenderData.Obtain();
             m_RenderData.Add(bgRenderData);
         }
-        bgRenderData.material = Atlas.material;
+        bgRenderData.material = bgAtlas.material;
         Color32 color = ApplyOpacity(GetBgActiveColor());
         if (spriteInfo is null) {
             return;
         }
         RenderOptions options = new() {
-            atlas = Atlas,
+            atlas = bgAtlas,
             color = color,
             fillAmount = 1f,
             flip = UISpriteFlip.None,
@@ -639,10 +639,10 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
         }
         UISpriteRender.RenderSprite(bgRenderData, options);
     }
-    protected virtual UITextureAtlas.SpriteInfo GetBgSprite() => Atlas?[BgSprites.GetSprite(State)];
+    protected virtual UITextureAtlas.SpriteInfo GetBgSprite() => BgAtlas?[BgSprites.GetSprite(State)];
     protected virtual Color32 GetBgActiveColor() => BgSprites.GetColor(State);
     private void RenderText() {
-        if (Atlas is null || SelectedIndex < 0 || SelectedIndex >= Items.Length) {
+        if (textAtlas is null || SelectedIndex < 0 || SelectedIndex >= Items.Length) {
             return;
         }
         if (textRenderData is not null) {
@@ -651,7 +651,7 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
             textRenderData = UIRenderData.Obtain();
             m_RenderData.Add(textRenderData);
         }
-        textRenderData.material = Atlas.material;
+        textRenderData.material = textAtlas.material;
         string text = Items[SelectedIndex];
         float num = PixelsToUnits();
         Vector2 maxSize = new(size.x - TextPadding.horizontal, size.y - TextPadding.vertical);
@@ -683,7 +683,7 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
             uifontRenderer.vectorOffset = GetVertAlignOffset(uifontRenderer);
         }
         if (uifontRenderer is UIDynamicFont.DynamicFontRenderer dynamicFontRenderer) {
-            dynamicFontRenderer.spriteAtlas = Atlas;
+            dynamicFontRenderer.spriteAtlas = textAtlas;
             dynamicFontRenderer.spriteBuffer = textRenderData;
         }
         uifontRenderer.Render(text, textRenderData);

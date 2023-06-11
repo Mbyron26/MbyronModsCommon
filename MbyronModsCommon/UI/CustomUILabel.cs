@@ -146,7 +146,7 @@ public class CustomUILabel : CustomUITextComponent {
     }
 
     public void SetStyle(UITextureAtlas atlas, string bgSprite, Color32 bgNormalColor = default, Color32 bgDisabledColor = default) {
-        Atlas = atlas;
+        textAtlas = bgAtlas = atlas;
         BgSprite = bgSprite;
         BgNormalColor = bgNormalColor;
         BgDisabledColor = bgDisabledColor;
@@ -193,25 +193,28 @@ public class CustomUILabel : CustomUITextComponent {
         }
     }
     protected override void OnRebuildRenderData() {
-        if (Font is null || !Font.isValid) {
-            return;
-        }
-        RenderBackground();
-        if (textRenderData is not null) {
-            textRenderData.Clear();
+        if (bgRenderData is null) {
+            bgRenderData = UIRenderData.Obtain();
+            m_RenderData.Add(bgRenderData);
         } else {
+            bgRenderData.Clear();
+        }
+        if (textRenderData is null) {
             textRenderData = UIRenderData.Obtain();
             m_RenderData.Add(textRenderData);
-        }
-        textRenderData.material = Atlas.material;
-        if (string.IsNullOrEmpty(Text)) {
+        } else {
+            textRenderData.Clear();
+        }     
+        RenderBackground();
+        textRenderData.material = TextAtlas.material;
+        if (Font is null || !Font.isValid || string.IsNullOrEmpty(Text)) {
             return;
         }
         bool flag = size.sqrMagnitude <= float.Epsilon;
         using UIFontRenderer uifontRenderer = ObtainRenderer();
         if (uifontRenderer is UIDynamicFont.DynamicFontRenderer dynamicFontRenderer) {
-            dynamicFontRenderer.spriteAtlas = Atlas;
-            dynamicFontRenderer.spriteBuffer = bgRenderData;
+            dynamicFontRenderer.spriteAtlas = TextAtlas;
+            dynamicFontRenderer.spriteBuffer = textRenderData;
         }
         uifontRenderer.Render(Text, textRenderData);
         if (AutoSize || flag) {
@@ -219,6 +222,7 @@ public class CustomUILabel : CustomUITextComponent {
         } else if (AutoHeight) {
             size = new Vector2(size.x, uifontRenderer.renderedSize.y + TextPadding.vertical).RoundToInt();
         }
+
     }
     public UIFontRenderer ObtainRenderer() {
         Vector2 vector = size - new Vector2(TextPadding.horizontal, TextPadding.vertical);
@@ -288,23 +292,16 @@ public class CustomUILabel : CustomUITextComponent {
         return vectorOffset;
     }
     protected virtual void RenderBackground() {
-        if (Atlas is null) {
+        if (bgAtlas is null)
             return;
-        }
-        if (bgRenderData is not null) {
-            bgRenderData.Clear();
-        } else {
-            bgRenderData = UIRenderData.Obtain();
-            m_RenderData.Add(bgRenderData);
-        }
-        bgRenderData.material = Atlas.material;
-        UITextureAtlas.SpriteInfo spriteInfo = Atlas[BgSprite];
+        bgRenderData.material = bgAtlas.material;
+        UITextureAtlas.SpriteInfo spriteInfo = bgAtlas[BgSprite];
         if (spriteInfo is null) {
             return;
         }
         Color32 color = ApplyOpacity(isEnabled ? bgNormalColor : bgDisabledColor);
         RenderOptions options = new() {
-            atlas = Atlas,
+            atlas = bgAtlas,
             color = color,
             fillAmount = 1f,
             flip = UISpriteFlip.None,

@@ -27,6 +27,12 @@ public static class CustomUIAtlas {
     public static string ArrowDown => nameof(ArrowDown);
     public static string CloseButton => nameof(CloseButton);
     public static string ResetButton => nameof(ResetButton);
+    public static string Copy => nameof(Copy);
+    public static string Paste => nameof(Paste);
+    public static string Clean => nameof(Clean);
+    public static string Close => nameof(Close);
+    public static string ToolButton => nameof(ToolButton);
+    
 
     static CustomUIAtlas() {
         SpriteParams[CustomBackground] = new RectOffset(12, 12, 12, 12);
@@ -48,6 +54,11 @@ public static class CustomUIAtlas {
         SpriteParams[ArrowDown] = new RectOffset(4, 4, 4, 4);
         SpriteParams[CloseButton] = new RectOffset(4, 4, 4, 4);
         SpriteParams[ResetButton] = new RectOffset(4, 4, 4, 4);
+        SpriteParams[Copy] = new RectOffset(1, 1, 1, 1);
+        SpriteParams[Paste] = new RectOffset(1, 1, 1, 1);
+        SpriteParams[Clean] = new RectOffset(1, 1, 1, 1);
+        SpriteParams[Close] = new RectOffset(1, 1, 1, 1);
+        SpriteParams[ToolButton] = new RectOffset(1, 1, 1, 1);
     }
 
     public static UITextureAtlas MbyronModsAtlas {

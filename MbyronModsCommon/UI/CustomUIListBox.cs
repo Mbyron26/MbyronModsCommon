@@ -519,10 +519,10 @@ public class CustomUIListBox : CustomUITextComponent {
     }
 
     protected override void OnRebuildRenderData() {
-        if (Atlas is null || Font is null || !Font.isValid) {
+        if (bgAtlas is null || Font is null || !Font.isValid) {
             return;
         }
-        renderData.material = Atlas.material;
+        renderData.material = bgAtlas.material;
         RenderBackground();
         int count = renderData.vertices.Count;
         RenderHover();
@@ -532,13 +532,13 @@ public class CustomUIListBox : CustomUITextComponent {
         ClipQuads(textRenderData, 0);
     }
     protected virtual void RenderBackground() {
-        UITextureAtlas.SpriteInfo spriteInfo = Atlas[BgSprite];
+        UITextureAtlas.SpriteInfo spriteInfo = bgAtlas[BgSprite];
         if (spriteInfo is null) {
             return;
         }
         Color32 color = ApplyOpacity(isEnabled ? bgNormalColor : bgDisabledColor);
         RenderOptions options = new() {
-            atlas = Atlas,
+            atlas = bgAtlas,
             color = color,
             fillAmount = 1f,
             flip = UISpriteFlip.None,
@@ -563,7 +563,7 @@ public class CustomUIListBox : CustomUITextComponent {
             textRenderData = UIRenderData.Obtain();
             m_RenderData.Add(textRenderData);
         }
-        textRenderData.material = Atlas.material;
+        textRenderData.material = bgAtlas.material;
         float num = PixelsToUnits();
         Vector2 maxSize = new(size.x - ItemPadding.horizontal - ListPadding.horizontal, (ItemHeight - ItemPadding.vertical));
         Vector3 vector = pivot.TransformToUpperLeft(size, arbitraryPivotOffset);
@@ -576,7 +576,7 @@ public class CustomUIListBox : CustomUITextComponent {
         for (int i = 0; i < Items.Length; i++) {
             using UIFontRenderer uifontRenderer = Font.ObtainRenderer();
             if (uifontRenderer is UIDynamicFont.DynamicFontRenderer dynamicFontRenderer) {
-                dynamicFontRenderer.spriteAtlas = Atlas;
+                dynamicFontRenderer.spriteAtlas = bgAtlas;
                 dynamicFontRenderer.spriteBuffer = renderData;
             }
             uifontRenderer.wordWrap = false;
@@ -635,7 +635,7 @@ public class CustomUIListBox : CustomUITextComponent {
         if (SelectedIndex < 0) {
             return;
         }
-        UITextureAtlas.SpriteInfo spriteInfo = Atlas[ItemSelectionSprite];
+        UITextureAtlas.SpriteInfo spriteInfo = bgAtlas[ItemSelectionSprite];
         if (spriteInfo == null) {
             return;
         }
@@ -645,7 +645,7 @@ public class CustomUIListBox : CustomUITextComponent {
         offset.y -= (SelectedIndex * ItemHeight);
         Color32 color = ApplyOpacity(ItemSelectionColor);
         RenderOptions options = new() {
-            atlas = Atlas,
+            atlas = bgAtlas,
             color = color,
             fillAmount = 1f,
             flip = UISpriteFlip.None,
@@ -664,11 +664,11 @@ public class CustomUIListBox : CustomUITextComponent {
         if (!Application.isPlaying) {
             return;
         }
-        bool flag = Atlas == null || !isEnabled || hoverIndex < 0 || hoverIndex > Items.Length - 1 || string.IsNullOrEmpty(ItemHoverSprite) || IsFilteredItem(hoverIndex);
+        bool flag = bgAtlas == null || !isEnabled || hoverIndex < 0 || hoverIndex > Items.Length - 1 || string.IsNullOrEmpty(ItemHoverSprite) || IsFilteredItem(hoverIndex);
         if (flag) {
             return;
         }
-        UITextureAtlas.SpriteInfo spriteInfo = Atlas[ItemHoverSprite];
+        UITextureAtlas.SpriteInfo spriteInfo = bgAtlas[ItemHoverSprite];
         if (spriteInfo == null) {
             return;
         }
@@ -690,7 +690,7 @@ public class CustomUIListBox : CustomUITextComponent {
         offset.y -= hoverTweenLocation.Quantize(num);
         Color32 color = ApplyOpacity(ItemHoverColor);
         RenderOptions options = new() {
-            atlas = Atlas,
+            atlas = bgAtlas,
             color = color,
             fillAmount = 1f,
             flip = UISpriteFlip.None,

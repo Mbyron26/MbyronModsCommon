@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AltToChangeAll" xml:space="preserve">
+    <value>Hold Alt to change all values</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>Both</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -136,7 +142,7 @@
     <value>모드 호환성 확인</value>
   </data>
   <data name="CompatibilityCheck_Minor" xml:space="preserve">
-    <value>이 기능은 이 모드와 관련된 호환성 문제만 감지합니다. 모든 모드의 호환성을 확인하려면 [Compatibility Report] 모드를 권장합니다.</value>
+    <value>This function only detects compatibility issues related to this mod. To check compatibility for all mods, [Skyve] mod is recommended.</value>
   </data>
   <data name="CompatibilityCheck_SameFunctionality" xml:space="preserve">
     <value>이미 동일한 기능이 포함되어 있습니다.</value>
@@ -246,6 +252,12 @@
   <data name="No" xml:space="preserve">
     <value>아니오</value>
   </data>
+  <data name="OnlyInGame" xml:space="preserve">
+    <value>Only in game</value>
+  </data>
+  <data name="OnlyInUUI" xml:space="preserve">
+    <value>Only in UUI</value>
+  </data>
   <data name="OptionPanel_Advanced" xml:space="preserve">
     <value>고급 설정</value>
   </data>
@@ -304,6 +316,12 @@ Shift를 눌러 10배, Ctrl을 눌러 0.1배</value>
   </data>
   <data name="ShowControlPanel" xml:space="preserve">
     <value>제어판 표시</value>
+  </data>
+  <data name="ToolButton" xml:space="preserve">
+    <value>Tool Button</value>
+  </data>
+  <data name="ToolButtonDisplay" xml:space="preserve">
+    <value>Tool button display</value>
   </data>
   <data name="XMLWariningMessageBox_Warning" xml:space="preserve">
     <value>경고! 모드가 이전 구성 데이터를 정상적으로 읽을 수 없습니다. 이제 모드에 대한 기본 구성이 로드되었습니다. 게임을 시작하기 전에 옵션 패널로 이동하여 설정을 구성하십시오.</value>

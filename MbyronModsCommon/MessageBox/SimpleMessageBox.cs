@@ -1,26 +1,30 @@
 ﻿namespace MbyronModsCommon;
-using ColossalFramework.UI;
+using ICities;
 
-public class XMLWariningMessageBox : SimpleMessageBox {
-    public UILabel WarningText { get; set; }
-    public override void Initialize<Mod>() {
-        base.Initialize<Mod>();
-        WarningText = MainPanel.AddUIComponent<UILabel>();
-        WarningText.autoSize = false;
-        WarningText.autoHeight = true;
-        WarningText.width = 560f;
-        WarningText.textScale = 1.3f;
-        WarningText.textAlignment = UIHorizontalAlignment.Center;
-        WarningText.wordWrap = true;
-        WarningText.text = CommonLocalize.XMLWariningMessageBox_Warning;
+public class TwoButtonMessageBox : MessageBoxBase {
+    public virtual void Init(string title, string text, OnButtonClicked yesCallback, OnButtonClicked noCallBack = null, bool callCloseAfterAction = true) {
+        TitleText = title;
+        AddLabelInMainPanel(text);
+        AddButtons(1, 2, CommonLocalize.MessageBox_OK, () => {
+            if (callCloseAfterAction) {
+                yesCallback?.Invoke();
+                Close();
+            } else {
+                yesCallback?.Invoke();
+            }
+        });
+        AddButtons(2, 2, CommonLocalize.Cancel, noCallBack is null ? Close : null);
     }
 }
-public class SimpleMessageBox : MessageBoxBase {
-    public SimpleMessageBox() {
+
+public class OneButtonMessageBox : MessageBoxBase {
+    public override void Start() {
+        base.Start();
         AddButtons(1, 1, CommonLocalize.MessageBox_OK, Close);
     }
-    public virtual void Initialize<Mod>() where Mod : IMod {
-        TitleText = ModMainInfo<Mod>.ModName;
+
+    public virtual void Init(string title, string text) {
+        TitleText = title;
+        AddLabelInMainPanel(text);
     }
 }
-

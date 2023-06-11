@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AltToChangeAll" xml:space="preserve">
+    <value>Hold Alt to change all values</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>Both</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="ChangeLog" xml:space="preserve">
     <value>更改日誌</value>
@@ -136,7 +142,7 @@
     <value>模組兼容性檢查</value>
   </data>
   <data name="CompatibilityCheck_Minor" xml:space="preserve">
-    <value>此功能僅檢測與此 mod 相關的兼容性問題。要檢查所有模組的兼容性，建議使用 [兼容性報告] 模組。</value>
+    <value>This function only detects compatibility issues related to this mod. To check compatibility for all mods, [Skyve] mod is recommended.</value>
   </data>
   <data name="CompatibilityCheck_SameFunctionality" xml:space="preserve">
     <value>已經包含相同的功能。</value>
@@ -154,7 +160,7 @@
     <value>語言</value>
   </data>
   <data name="Language_cs" xml:space="preserve">
-    <value>Czech</value>
+    <value>捷克語</value>
   </data>
   <data name="Language_de" xml:space="preserve">
     <value>德語</value>
@@ -181,7 +187,7 @@
     <value>韓國人</value>
   </data>
   <data name="Language_ms" xml:space="preserve">
-    <value>Malay</value>
+    <value>馬來西亞語</value>
   </data>
   <data name="Language_nl" xml:space="preserve">
     <value>荷蘭語</value>
@@ -196,10 +202,10 @@
     <value>俄語</value>
   </data>
   <data name="Language_sk" xml:space="preserve">
-    <value>Slovak</value>
+    <value>斯洛伐克語</value>
   </data>
   <data name="Language_th" xml:space="preserve">
-    <value>Thai</value>
+    <value>泰語</value>
   </data>
   <data name="Language_tr" xml:space="preserve">
     <value>土耳其</value>
@@ -217,7 +223,7 @@
     <value>調整後</value>
   </data>
   <data name="LogMessageBox_Attention" xml:space="preserve">
-    <value>Attention</value>
+    <value>注意事項</value>
   </data>
   <data name="LogMessageBox_Fixed" xml:space="preserve">
     <value>固定的</value>
@@ -229,7 +235,7 @@
     <value>刪除</value>
   </data>
   <data name="LogMessageBox_Translation" xml:space="preserve">
-    <value>Translation</value>
+    <value>翻譯</value>
   </data>
   <data name="LogMessageBox_Updated" xml:space="preserve">
     <value>更新</value>
@@ -245,6 +251,12 @@
   </data>
   <data name="No" xml:space="preserve">
     <value>不</value>
+  </data>
+  <data name="OnlyInGame" xml:space="preserve">
+    <value>Only in game</value>
+  </data>
+  <data name="OnlyInUUI" xml:space="preserve">
+    <value>Only in UUI</value>
   </data>
   <data name="OptionPanel_Advanced" xml:space="preserve">
     <value>先進的</value>
@@ -295,13 +307,19 @@
     <value>重置模組成功。</value>
   </data>
   <data name="ResetModWarning" xml:space="preserve">
-    <value>Are you sure you want to reset the configuration of the mod?</value>
+    <value>您確定要重設模組的組態嗎？</value>
   </data>
   <data name="ScrollWheel" xml:space="preserve">
     <value>滾動滾輪進行更改，Shift X10，Ctrl X0.1</value>
   </data>
   <data name="ShowControlPanel" xml:space="preserve">
     <value>顯示控制面板</value>
+  </data>
+  <data name="ToolButton" xml:space="preserve">
+    <value>Tool Button</value>
+  </data>
+  <data name="ToolButtonDisplay" xml:space="preserve">
+    <value>Tool button display</value>
   </data>
   <data name="XMLWariningMessageBox_Warning" xml:space="preserve">
     <value>警告！模組無法正常讀取舊的配置數據。現在已經為 mod 加載了默認配置。請在開始遊戲前進入選項面板並配置您的設置。</value>

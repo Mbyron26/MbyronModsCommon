@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using ColossalFramework.Globalization;
 using ColossalFramework;
+using ColossalFramework.UI;
 
 public class ModMainInfo<Mod> : SingletonMod<Mod> where Mod : IMod {
     public static string RawName => Instance.RawName;
@@ -13,7 +14,7 @@ public class ModMainInfo<Mod> : SingletonMod<Mod> where Mod : IMod {
     public static BuildVersion VersionType => Instance.VersionType;
 }
 
-public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBase<TypeMod, TypeConfig> where TypeConfig : ModConfig<TypeConfig>, new() {
+public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBase<TypeMod, TypeConfig> where TypeConfig : SingletonConfig<TypeConfig>, new() {
     private CultureInfo modCulture;
 
     public virtual string RawName => AssemblyUtils.CurrentAssemblyName;
@@ -23,11 +24,12 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
     public virtual ulong? BetaID { get; }
     public abstract BuildVersion VersionType { get; }
     public string Name => VersionType switch {
-        BuildVersion.BetaDebug or BuildVersion.BetaRelease => ModName + " [BETA] " + ModVersion,
+        BuildVersion.BetaDebug or BuildVersion.BetaRelease => ModName + " [BETA] " + ModVersion.GetString(),
         _ => ModName + ' ' + ModVersion.GetString(),
     };
     public virtual string Description => string.Empty;
     public bool IsEnabled { get; private set; }
+    public bool LevelLoaded { get; private set; }
     public abstract List<ModChangeLog> ChangeLog { get; }
     public CultureInfo ModCulture {
         get => modCulture;
@@ -42,7 +44,9 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
         InternalLogger.Log($"Start initializing mod");
         SingletonMod<TypeMod>.Instance = (TypeMod)this;
         ExternalLogger.CreateDebugFile<TypeMod>();
-        LoadConfig();
+        if (!LoadConfig()) {
+            LoadingManager.instance.m_introLoaded += () => MessageBox.Show<OneButtonMessageBox>().Init(Name, CommonLocalize.XMLWariningMessageBox_Warning);
+        }
         LoadLocale();
         LocaleManager.eventLocaleChanged += LoadLocale;
         CompatibilityCheck.ModName = ModName;
@@ -73,12 +77,12 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
     }
     private string GetLocale() => LocaleManager.exists ? Language.LocaleExtension(LocaleManager.instance.language) : Language.LocaleExtension(new SavedString(Settings.localeID, Settings.gameSettingsFile, DefaultSettings.localeID).value);
 
-    public void LoadConfig() => ModConfig<TypeConfig>.Load();
-    public void SaveConfig() => ModConfig<TypeConfig>.Save();
+    public bool LoadConfig() => SingletonConfig<TypeConfig>.Load();
+    public void SaveConfig() => SingletonConfig<TypeConfig>.Save();
+
     public void OnEnabled() {
         InternalLogger.Log("Enabled");
         IsEnabled = true;
-
         Enable();
     }
     public void OnDisabled() {
@@ -91,9 +95,14 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
     protected virtual void Disable() { }
     public virtual void IntroActions() { }
 
-    public void OnCreated(ILoading loading) { }
-    public virtual void OnLevelLoaded(LoadMode mode) => ShowLogMessageBox();
-    public virtual void OnLevelUnloading() { }
+    public virtual void OnCreated(ILoading loading) { }
+    public virtual void OnLevelLoaded(LoadMode mode) {
+        LevelLoaded = true;
+        ShowLogMessageBox();
+    }
+    public virtual void OnLevelUnloading() {
+        LevelLoaded = false;
+    }
     public virtual void OnReleased() { }
 
     private void ShowLogMessageBox() {
@@ -171,14 +180,6 @@ public class ModThreadExtensionBase : ThreadingExtensionBase {
     }
 }
 
-public abstract class SingletonMod<Type> {
-    public static Type Instance { get; set; }
-}
-
-public abstract class SingletonItem<T> {
-    public static T Instance { get; set; }
-}
-
 public interface IMod : IUserMod, ILoadingExtension {
     BuildVersion VersionType { get; }
     string RawName { get; }
@@ -188,7 +189,7 @@ public interface IMod : IUserMod, ILoadingExtension {
     ulong StableID { get; }
     CultureInfo ModCulture { get; set; }
     void SaveConfig();
-    void LoadConfig();
+    bool LoadConfig();
 }
 
 public static class VersionExtension {

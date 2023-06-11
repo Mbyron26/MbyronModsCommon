@@ -4,13 +4,14 @@ using System.Globalization;
 using UnityEngine;
 using MbyronModsCommon.UI;
 
-public class OptionPanelBase<TypeMod, TypeConfig, TypeOptionPanel> : CustomUIPanel where TypeMod : IMod where TypeConfig : ModConfig<TypeConfig>, new() where TypeOptionPanel : CustomUIPanel {
+public partial class OptionPanelBase<TypeMod, TypeConfig, TypeOptionPanel> : CustomUIPanel where TypeMod : IMod where TypeConfig : SingletonConfig<TypeConfig>, new() where TypeOptionPanel : CustomUIPanel {
     public static readonly Vector2 Size = new(764, 773);
     public static readonly float MainPadding = 16;
     public static readonly float MainWidth = Size.x - 2 * MainPadding;
     public static readonly Vector2 TabSize = new(MainWidth, 30);
     public static readonly Vector2 ContainerSize = new(MainWidth, Size.y - 2 * MainPadding - 30 - 10);
     protected CustomUITabContainer tabContainer;
+    protected Action ResetCallback;
 
     protected CustomUIScrollablePanel GeneralContainer { get; private set; }
     protected CustomUIScrollablePanel HotkeyContainer { get; private set; }
@@ -59,7 +60,7 @@ public class OptionPanelBase<TypeMod, TypeConfig, TypeOptionPanel> : CustomUIPan
         var label0 = panel0.Child as CustomUILabel;
         label0.BgNormalColor = (ModMainInfo<TypeMod>.VersionType == BuildVersion.StableRelease) ? new Color32(76, 148, 10, 255) : ((ModMainInfo<TypeMod>.VersionType == BuildVersion.BetaRelease) ? new Color32(188, 120, 6, 255) : new Color32(6, 132, 138, 255));
         label0.TextPadding = new(4, 4, 4, 2);
-        label0.Atlas = CustomUIAtlas.MbyronModsAtlas;
+        label0.TextAtlas = label0.BgAtlas = CustomUIAtlas.MbyronModsAtlas;
         label0.BgSprite = CustomUIAtlas.RoundedRectangle2;
         label0.width += 8;
         panel0.StartLayout();
@@ -137,6 +138,7 @@ public class OptionPanelBase<TypeMod, TypeConfig, TypeOptionPanel> : CustomUIPan
             SingletonItem<TypeConfig>.Instance = null;
             SingletonItem<TypeConfig>.Instance = new();
             OptionPanelManager<TypeMod, TypeOptionPanel>.LocaleChanged();
+            ResetCallback?.Invoke();
             InternalLogger.Log($"Reset mod config succeeded.");
             MessageBox.Hide(messageBox);
             messageBox1 = MessageBox.Show<ResetModMessageBox>();

@@ -423,7 +423,7 @@ public class CustomUIPanel : UIComponent {
         }
         Vector2 foregroundRenderSize = GetForegroundRenderSize(foregroundSprite);
         Vector2 foregroundRenderOffset = GetForegroundRenderOffset(foregroundRenderSize);
-        Color32 color = ApplyOpacity(isEnabled ? FgNormalColor : FgDisabledColor);
+        Color32 color = isEnabled ? FgNormalColor : FgDisabledColor;
         RenderOptions options = new() {
             atlas = Atlas,
             color = color,

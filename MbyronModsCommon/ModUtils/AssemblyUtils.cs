@@ -1,5 +1,6 @@
 ﻿namespace MbyronModsCommon;
 using ColossalFramework.Plugins;
+using ColossalFramework.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,6 +20,19 @@ public class AssemblyUtils {
     public static List<string> FoldersNameUnderLocalePath { get; } = foldersNameUnderLocalePath ??= GetFoldersNameByPath(Path.Combine(CurrentAssemblyPath, "Locale")).ToList();
     public static List<string> FoldersNameUnderCurrentAssembly { get; } = folderNamesUnderCurrentAssembly ??= GetFoldersNameByPath(CurrentAssemblyPath).ToList();
 
+    public static Assembly GetAssembly(string name) {
+        Assembly assembly = null;
+        PluginManager.instance.GetPluginsInfo().ForEach(plugin => {
+            if (plugin.isEnabled) {
+                plugin.GetAssemblies().ForEach(a => {
+                    if (a.GetName().Name.Equals(name))
+                        assembly = a;
+                });
+            }
+        });
+        return assembly;
+    }
+
     private static string GetCuttentAssemblyPath() {
         foreach (var item in PluginManager.instance.GetPluginsInfo()) {
             var assembliesNames = item.assembliesString;
@@ -27,6 +41,7 @@ public class AssemblyUtils {
         }
         return null;
     }
+
     public static string[] GetFoldersNameByPath(string path) {
         if (Directory.Exists(path)) {
             string[] directory = Directory.GetDirectories(path);

@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AltToChangeAll" xml:space="preserve">
+    <value>Hold Alt to change all values</value>
+  </data>
+  <data name="Both" xml:space="preserve">
+    <value>Both</value>
+  </data>
   <data name="Cancel" xml:space="preserve">
     <value>Zrušit</value>
   </data>
@@ -136,7 +142,7 @@
     <value>Kontrola kompatibility</value>
   </data>
   <data name="CompatibilityCheck_Minor" xml:space="preserve">
-    <value>Tato funkce detekuje pouze problémy s kompatibilitou související s touhle modifikací. Pro kontrolu kompatibility pro všechny mody, je doporučen [Compatibility Report] mod.</value>
+    <value>This function only detects compatibility issues related to this mod. To check compatibility for all mods, [Skyve] mod is recommended.</value>
   </data>
   <data name="CompatibilityCheck_SameFunctionality" xml:space="preserve">
     <value>již obsahuje tutéž funkci.</value>
@@ -246,6 +252,12 @@
   <data name="No" xml:space="preserve">
     <value>Ne</value>
   </data>
+  <data name="OnlyInGame" xml:space="preserve">
+    <value>Only in game</value>
+  </data>
+  <data name="OnlyInUUI" xml:space="preserve">
+    <value>Only in UUI</value>
+  </data>
   <data name="OptionPanel_Advanced" xml:space="preserve">
     <value>Pokročilé</value>
   </data>
@@ -303,6 +315,12 @@ Shift ×10, Ctrl ×0.1</value>
   </data>
   <data name="ShowControlPanel" xml:space="preserve">
     <value>Zobrazit ovládací panel</value>
+  </data>
+  <data name="ToolButton" xml:space="preserve">
+    <value>Tool Button</value>
+  </data>
+  <data name="ToolButtonDisplay" xml:space="preserve">
+    <value>Tool button display</value>
   </data>
   <data name="XMLWariningMessageBox_Warning" xml:space="preserve">
     <value>Varování! Modifikace nemůže normálně číst stará konfigurační data. Nyní byla načtena výchozí konfigurace pro režim. Před spuštěním hry přejděte na panel možností přenastavte si nastavení.</value>

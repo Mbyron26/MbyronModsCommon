@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using System;
 using ColossalFramework.IO;
 
-public class ModConfig<T> : SingletonItem<T> where T : ModConfig<T>, new() {
+public partial class SingletonConfig<T> : SingletonItem<T> where T : SingletonConfig<T>, new() {
     public string ModVersion { get; set; } = "0.0.0";
     public LanguageType LocaleType { get; set; } = LanguageType.Default;
     public string LocaleID { get; set; } = string.Empty;
@@ -23,7 +23,8 @@ public class ModConfig<T> : SingletonItem<T> where T : ModConfig<T>, new() {
             InternalLogger.Exception($"Saving {ConfigFilePath} failed.", e);
         }
     }
-    public static void Load() {
+    public static bool Load() {
+        bool result;
         InternalLogger.Log("Start loading mod config data.");
         var path = Path.Combine(DataLocation.localApplicationData, $"{AssemblyUtils.CurrentAssemblyName}Config.xml");
         try {
@@ -35,19 +36,24 @@ public class ModConfig<T> : SingletonItem<T> where T : ModConfig<T>, new() {
                     InternalLogger.Log($"Couldn't deserialize XML file, the target path: {path}.");
                     InternalLogger.Log("Generate mod default data.");
                     Instance = new();
+                    result = false;
                 } else {
                     InternalLogger.Log("Local config exists, deserialize XML file succeeded.");
                     Instance = c as T;
+                    result = true;
                 }
             } else {
                 InternalLogger.Log($"No local config found, use mod default config.");
                 Instance = new();
+                result = true;
             }
         } catch {
             InternalLogger.Error($"Could't load data from XML file");
             Instance = new();
             Save();
             InternalLogger.Log($"Regenerate new config file.");
+            result = false;
         }
+        return result;
     }
 }
