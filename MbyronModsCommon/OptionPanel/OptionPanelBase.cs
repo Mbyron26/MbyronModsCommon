@@ -137,6 +137,7 @@ public partial class OptionPanelBase<TypeMod, TypeConfig, TypeOptionPanel> : Cus
             InternalLogger.Log($"Start resetting mod config.");
             SingletonItem<TypeConfig>.Instance = null;
             SingletonItem<TypeConfig>.Instance = new();
+            SingletonMod<TypeMod>.Instance.LoadLocale();
             OptionPanelManager<TypeMod, TypeOptionPanel>.LocaleChanged();
             ResetCallback?.Invoke();
             InternalLogger.Log($"Reset mod config succeeded.");

@@ -58,7 +58,7 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
         SettingsUI(helper);
     }
     protected virtual void SettingsUI(UIHelperBase helper) { }
-    private void LoadLocale() {
+    public void LoadLocale() {
         try {
             string localeID;
             if (SingletonItem<TypeConfig>.Instance.LocaleType == LanguageType.Default) {
@@ -190,6 +190,7 @@ public interface IMod : IUserMod, ILoadingExtension {
     CultureInfo ModCulture { get; set; }
     void SaveConfig();
     bool LoadConfig();
+    void LoadLocale();
 }
 
 public static class VersionExtension {
