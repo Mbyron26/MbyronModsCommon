@@ -4,6 +4,8 @@ using ColossalFramework.UI;
 using ColossalFramework;
 using UnityEngine;
 using ICities;
+using System.Collections.Generic;
+using System;
 
 public static class MessageBox {
     public static T Show<T>() where T : MessageBoxBase {
@@ -56,6 +58,8 @@ public abstract class MessageBoxBase : CustomUIPanel {
 
     public string TitleText { set => title.Text = value; }
     protected CustomUIScrollablePanel MainPanel => contentPanel.MainPanel;
+    protected List<CustomUIButton> Buttons { get; set; } = new();
+    private float MaxScrollableContentHeight => GetUIView().GetScreenResolution().y - 600f;
 
     public MessageBoxBase() {
         isVisible = true;
@@ -96,9 +100,6 @@ public abstract class MessageBoxBase : CustomUIPanel {
         title.TextScale = 1.3f;
         title.TextPadding = new RectOffset(0, 0, 16, 0);
         title.Font = CustomUIFontHelper.SemiBold;
-        //title.EventTextChanged += (c, v) => {
-        //    title.CenterToParent();
-        //};
         title.relativePosition = Vector2.zero;
 
         dragBar = AddUIComponent<UIDragHandle>();
@@ -114,8 +115,8 @@ public abstract class MessageBoxBase : CustomUIPanel {
         buttonPanel = AddUIComponent<CustomUIPanel>();
         buttonPanel.size = new Vector2(MessageBoxParm.Width, MessageBoxParm.ButtonPanelHeight);
     }
-    private float MaxScrollableContentHeight => GetUIView().GetScreenResolution().y - 600f;
-    protected CustomUIButton AddButtons(uint number, uint total, string text, OnButtonClicked callback) {
+
+    protected CustomUIButton AddButtons(uint number, uint total, string text, Action callback) {
         var spacing = (total - 1) * MessageBoxParm.Padding;
         var buttonWidth = (MessageBoxParm.Width - 2 * MessageBoxParm.Padding - spacing) / total;
         var button = CustomUIButton.Add(buttonPanel, text, buttonWidth, buttonHeight, callback, 1f);
@@ -123,6 +124,26 @@ public abstract class MessageBoxBase : CustomUIPanel {
         ArrangePosition(button, number, buttonWidth);
         return button;
     }
+
+    protected CustomUIButton AddButton(string text, Action onButtonClicked) {
+        var button = CustomUIButton.Add(buttonPanel, text, 10, buttonHeight, onButtonClicked, 1f);
+        button.OnBgSprites.SetColors(CustomUIColor.CPPrimaryBg, CustomUIColor.CPButtonHovered, CustomUIColor.CPButtonPressed, CustomUIColor.CPPrimaryBg, CustomUIColor.CPButtonDisabled);
+        Buttons.Add(button);
+        ArrangeButtons();
+        return button;
+    }
+
+    private void ArrangeButtons() {
+        var count = Buttons.Count;
+        var buttonWidth = (MessageBoxParm.ComponentWidth - (count - 1) * 10) / count;
+        float offsetX = MessageBoxParm.Padding;
+        for (int i = 0; i < count; i++) {
+            Buttons[i].width = buttonWidth;
+            Buttons[i].relativePosition = new Vector2(offsetX, (buttonPanel.height - buttonHeight) / 2);
+            offsetX += buttonWidth + 10;
+        }
+    }
+
     private CustomUIButton ArrangePosition(CustomUIButton button, uint number, float buttonWidth) {
         button.name = "Button" + number.ToString();
         var posX = MessageBoxParm.Padding + (number - 1) * (buttonWidth + MessageBoxParm.Padding);

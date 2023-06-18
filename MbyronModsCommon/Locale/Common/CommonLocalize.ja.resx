@@ -135,6 +135,9 @@
   <data name="Check" xml:space="preserve">
     <value>確認</value>
   </data>
+  <data name="CompatibilityCheckRequestRestart" xml:space="preserve">
+    <value>非互換MODの無効化に失敗しました！ 該当するMODを手動で解除して、ゲームを再起動して下さい。</value>
+  </data>
   <data name="CompatibilityCheck_Incompatible" xml:space="preserve">
     <value>このMODは互換性がありません。</value>
   </data>

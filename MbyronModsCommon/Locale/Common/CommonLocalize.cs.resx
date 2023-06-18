@@ -135,6 +135,9 @@
   <data name="Check" xml:space="preserve">
     <value>Zkontrolovat</value>
   </data>
+  <data name="CompatibilityCheckRequestRestart" xml:space="preserve">
+    <value>Failed to disable incompatible mods, please manually unsubscribe incompatible mods and restart the game.</value>
+  </data>
   <data name="CompatibilityCheck_Incompatible" xml:space="preserve">
     <value>Tento mod je nekompatibilní.</value>
   </data>

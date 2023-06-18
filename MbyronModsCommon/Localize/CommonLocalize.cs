@@ -36,6 +36,11 @@ namespace MbyronModsCommon
 		public static string Check => LocaleManager.GetString("Check", Culture);
 
 		/// <summary>
+		/// Failed to disable incompatible mods, please manually unsubscribe incompatible mods and restart the g
+		/// </summary>
+		public static string CompatibilityCheckRequestRestart => LocaleManager.GetString("CompatibilityCheckRequestRestart", Culture);
+
+		/// <summary>
 		/// This mod is incompatible.
 		/// </summary>
 		public static string CompatibilityCheck_Incompatible => LocaleManager.GetString("CompatibilityCheck_Incompatible", Culture);

@@ -8,35 +8,26 @@ using System.Text;
 using System;
 using ColossalFramework.PlatformServices;
 
-public class CompatibilityChecker<T> : SingletonClass<CompatibilityCheck> where T : IMod {
-    public Action<ConflictModInfo, bool> EventConflictModRemoved;
-    public Action<bool> EventConflictModsRemoved;
-
-    public List<ConflictModInfo> ConflictMods { get; private set; }
+public class CompatibilityManager : SingletonManager<CompatibilityManager> {
+    private string ModName { get; set; } = string.Empty;
+    public override bool IsInit { get; set; }
+    public List<ConflictModInfo> ConflictMods { get; set; }
     public List<ConflictModInfo> DetectedConflictMods { get; private set; }
 
-    public bool RemoveConflictMods() {
-        if (DetectedConflictMods.Any()) {
-            return false;
-        }
-        List<bool> flags = new();
+    private bool RemoveConflictMods() {
+        List<bool> result = new();
         foreach (var item in DetectedConflictMods) {
-            flags.Add(RemoveConflictMod(item, false));
+            result.Add(RemoveConflictMod(item));
         }
-        var flag = flags.TrueForAll(x => x = true);
-        EventConflictModsRemoved?.Invoke(flag);
-        return flag;
+        return result.TrueForAll(x => true);
     }
 
-    public bool RemoveConflictMod(ConflictModInfo mod, bool callEvent) {
+    private bool RemoveConflictMod(ConflictModInfo mod) {
         var flag = PlatformService.workshop.Unsubscribe(new PublishedFileId(mod.fileID));
         if (flag) {
             InternalLogger.Log($"Unsubscribed conflict mod succeeded: {mod.name}");
         } else {
             InternalLogger.Log($"Unsubscribed conflict mod failed: {mod.name}");
-        }
-        if (callEvent) {
-            EventConflictModRemoved?.Invoke(mod, flag);
         }
         return flag;
     }
@@ -65,10 +56,41 @@ public class CompatibilityChecker<T> : SingletonClass<CompatibilityCheck> where 
         }
     }
 
-    public void Init() {
+    public override void DeInit() {
+        ConflictMods = null;
+        DetectedConflictMods = null;
+    }
+
+    public void ShowMessageBox() {
+        CheckConflictMods();
+        MessageBox.Show<CompatibilityMessageBox>().Init(ModName, DetectedConflictMods, DisableAction);
+    }
+
+    private void DisableAction(MessageBoxBase messageBoxBase) {
+        MessageBox.Hide(messageBoxBase);
+        var result = RemoveConflictMods();
+        CheckConflictMods();
+        if (result) {
+            DetectedConflictMods.Clear();
+            MessageBox.Show<CompatibilityMessageBox>().Init(ModName, DetectedConflictMods, first: true);
+        } else {
+            MessageBox.Show<OneButtonMessageBox>().Init($"{ModName} {CommonLocalize.OptionPanel_CompatibilityCheck}", CommonLocalize.CompatibilityCheckRequestRestart);
+        }
+    }
+
+    public void Init(string modName, List<ConflictModInfo> conflictMods) {
+        ConflictMods = conflictMods;
+        ModName = modName;
+        DetectedConflictMods = new();
+        CheckConflictMods();
+        if (DetectedConflictMods.Any()) {
+            MessageBox.Show<CompatibilityMessageBox>().Init(ModName, DetectedConflictMods, DisableAction);
+        }
+    }
+
+    public override void Init() {
         ConflictMods = new List<ConflictModInfo>();
         DetectedConflictMods = new List<ConflictModInfo>();
-        InternalLogger.Log("Init compatibility checker");
     }
 }
 

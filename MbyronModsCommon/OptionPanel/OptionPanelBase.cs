@@ -148,7 +148,7 @@ public partial class OptionPanelBase<TypeMod, TypeConfig, TypeOptionPanel> : Cus
     }
 
     private static void ShowLog() => MessageBox.Show<LogMessageBox>().Initialize<TypeMod>(false);
-    private static void ShowCompatibility() => MessageBox.Show<CompatibilityMessageBox>().Initialize(ModMainInfo<TypeMod>.ModName);
+    private static void ShowCompatibility() => SingletonManager<CompatibilityManager>.Instance.ShowMessageBox();
 
 }
 

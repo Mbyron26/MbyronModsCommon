@@ -67,7 +67,7 @@ public class CustomUITabButton : CustomUIButtonBase {
 }
 
 public class CustomUIButton : CustomUIButtonBase {
-    public static CustomUIButton Add(UIComponent parent, string text, float? width, float height, OnButtonClicked eventCallback, float textScale = 0.9f, bool defaultStyle = true) {
+    public static CustomUIButton Add(UIComponent parent, string text, float? width, float height, Action eventCallback, float textScale = 0.9f, bool defaultStyle = true) {
         var button = parent.AddUIComponent<CustomUIButton>();
         if (defaultStyle) {
             button.SetOptionPanelStyle();

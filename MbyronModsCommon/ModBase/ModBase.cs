@@ -31,6 +31,7 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
     public bool IsEnabled { get; private set; }
     public bool LevelLoaded { get; private set; }
     public abstract List<ModChangeLog> ChangeLog { get; }
+    public virtual List<ConflictModInfo> ConflictMods { get; set; }
     public CultureInfo ModCulture {
         get => modCulture;
         set {
@@ -49,7 +50,6 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
         }
         LoadLocale();
         LocaleManager.eventLocaleChanged += LoadLocale;
-        CompatibilityCheck.ModName = ModName;
     }
 
     public virtual void SetModCulture(CultureInfo cultureInfo) { }
@@ -91,9 +91,19 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
         Disable();
     }
 
-    protected virtual void Enable() => LoadingManager.instance.m_introLoaded += IntroActions;
+    protected virtual void Enable() {
+        if (UIView.GetAView() != null) {
+            IntroActions();
+        } else {
+            LoadingManager.instance.m_introLoaded += IntroActions;
+        }
+    }
     protected virtual void Disable() { }
-    public virtual void IntroActions() { }
+    public virtual void IntroActions() {
+        if (ConflictMods is not null || ConflictMods.Count > 0) {
+            SingletonManager<CompatibilityManager>.Instance.Init(ModName, ConflictMods);
+        }
+    }
 
     public virtual void OnCreated(ILoading loading) { }
     public virtual void OnLevelLoaded(LoadMode mode) {

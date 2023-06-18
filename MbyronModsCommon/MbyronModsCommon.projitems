@@ -27,7 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\AssemblyUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\CodeInstructionExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\CompatibilityCheck.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)modutils\CompatibilityChecker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)modutils\CompatibilityManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\DebugUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\KeyBinding.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\ModLogger.cs" />

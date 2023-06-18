@@ -32,8 +32,9 @@ public static class ExternalLogger {
     public static void LogInvokeTime(Stopwatch stopwatch, string message = "") => LogBase($"[{nameof(Log)}]" + message + $"Invoke time: {stopwatch.Elapsed.TotalMilliseconds * 1000:n3}μs");
     public static void Exception(string tag, Exception exception) => LogBase($"[{nameof(Exception)}]: {tag}" + exception.Message);
     public static void Exception(Exception exception) => LogBase($"[{nameof(Exception)}]" + exception.Message);
-    public static void DebugMode(string msg, bool enableLog) {
-        if (enableLog) {
+    public static void DebugMode<T>(string msg) where T : SingletonConfig<T>, new() {
+        var instance = SingletonConfig<T>.Instance;
+        if (instance is not null && instance.DebugMode) {
             LogBase(msg, "Debug Mode");
         }
     }
@@ -87,6 +88,12 @@ public static class InternalLogger {
     public static void Warning(string tag, object message) => UnityEngine.Debug.logger.LogWarning(GetTag(LogType.Warning), $"{tag} | {message}");
     public static void LogPatch(PatcherType patchType, MethodBase original, string originalMethod, MethodInfo patch, string patchMethod) => UnityEngine.Debug.logger.Log($"{Name} | [{patchType}]", $"[{original.DeclaringType.FullName}.{originalMethod}] patched by [{patch.DeclaringType.FullName}.{patchMethod}]");
     public static void Log(object message) => UnityEngine.Debug.logger.Log(GetTag(LogType.Log), $"{message}");
+    public static void DebugMode<T>(object message) where T : SingletonConfig<T>, new() {
+        var instance = SingletonConfig<T>.Instance;
+        if (instance is not null && instance.DebugMode) {
+            UnityEngine.Debug.logger.Log($"{Name} | [Debug]", $"{message}");
+        }
+    }
     public static void Exception(string tag, Exception exception) => UnityEngine.Debug.logger.Log(GetTag(LogType.Exception), $"{tag} | {exception}");
     private static string GetTag(LogType logType) => $"{Name} | [{logType}]";
 }

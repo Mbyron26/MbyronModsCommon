@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AltToChangeAll" xml:space="preserve">
-    <value>Hold Alt to change all values</value>
+    <value>กด Alt ค้างไว้เพื่อเปลี่ยนค่าทั้งหมด</value>
   </data>
   <data name="Both" xml:space="preserve">
-    <value>Both</value>
+    <value>ทั้งคู่</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>ยกเลิก</value>
@@ -135,6 +135,9 @@
   <data name="Check" xml:space="preserve">
     <value>ตรวจสอบ</value>
   </data>
+  <data name="CompatibilityCheckRequestRestart" xml:space="preserve">
+    <value>Failed to disable incompatible mods, please manually unsubscribe incompatible mods and restart the game.</value>
+  </data>
   <data name="CompatibilityCheck_Incompatible" xml:space="preserve">
     <value>เข้ากันไม่ได้กับม็อดต่อไปนี้</value>
   </data>
@@ -142,7 +145,7 @@
     <value>การตรวจสอบความเข้ากันได้ของม็อด</value>
   </data>
   <data name="CompatibilityCheck_Minor" xml:space="preserve">
-    <value>This function only detects compatibility issues related to this mod. To check compatibility for all mods, [Skyve] mod is recommended.</value>
+    <value>ฟังก์ชันนี้จะตรวจเฉพาะปัญหาความเข้ากันได้กับตัวม็อดนี้เท่านั้น หากต้องการตรวจสอบความเข้ากันได้ของม็อดอื่นทั้งหมด ขอแนะนำให้ใช้ม็อด [Skyve]</value>
   </data>
   <data name="CompatibilityCheck_SameFunctionality" xml:space="preserve">
     <value>มีฟังก์ชันเหมือนกัน</value>
@@ -253,22 +256,22 @@
     <value>เลขที่</value>
   </data>
   <data name="OnlyInGame" xml:space="preserve">
-    <value>Only in game</value>
+    <value>ในเกมเท่านั้น</value>
   </data>
   <data name="OnlyInUUI" xml:space="preserve">
-    <value>Only in UUI</value>
+    <value>ใน UUI เท่านั้น</value>
   </data>
   <data name="OptionPanel_Advanced" xml:space="preserve">
     <value>ขั้นสูง</value>
   </data>
   <data name="OptionPanel_BuiltinFunction" xml:space="preserve">
-    <value>ฟังก์ชั่นภายใน</value>
+    <value>ฟังก์ชันบิลท์อิน</value>
   </data>
   <data name="OptionPanel_CompatibilityCheck" xml:space="preserve">
     <value>ตรวจสอบความเข้ากันได้</value>
   </data>
   <data name="OptionPanel_DebugMinor" xml:space="preserve">
-    <value>ฟังก์ชั่นขั้นสูง ใช้สำหรับการดีบักเอาต์พุตเท่านั้น ขอแนะนำให้เปิดใช้งานตัวเลือกนี้หากมีสิ่งผิดพลาด และเมื่อเกิดปัญหาขึ้นอีกครั้งให้ส่งล็อกของคุณไปยังนักพัฒนาซอฟต์แวร์</value>
+    <value>ฟังก์ชันขั้นสูง ใช้สำหรับการดีบักเอาต์พุตเท่านั้น แนะนำให้เปิดใช้งานตัวเลือกนี้หากมีข้อผิดพลาดบางอย่างเกิดขึ้น และเมื่อมันเกิดปัญหาขึ้นซ้ำอีกครั้งให้ส่ง Log ของคุณไปยังนักพัฒนาซอฟต์แวร์</value>
   </data>
   <data name="OptionPanel_DebugMode" xml:space="preserve">
     <value>โหมดดีบัก</value>
@@ -316,10 +319,10 @@
     <value>แสดงแผงควบคุม</value>
   </data>
   <data name="ToolButton" xml:space="preserve">
-    <value>Tool Button</value>
+    <value>ปุ่มเครื่องมือ</value>
   </data>
   <data name="ToolButtonDisplay" xml:space="preserve">
-    <value>Tool button display</value>
+    <value>แสดงปุ่มเครื่องมือ</value>
   </data>
   <data name="XMLWariningMessageBox_Warning" xml:space="preserve">
     <value>คำเตือน! ม็อดไม่สามารถอ่านข้อมูลการกำหนดค่าได้ตามปกติ ขณะนี้ค่ากำหนดต่าง ๆ ได้กลับไปเป็นค่าเริ่มต้น โปรดไปยังแผงตัวเลือกและกำหนดค่าการตั้งค่าของคุณก่อนเริ่มเกม</value>

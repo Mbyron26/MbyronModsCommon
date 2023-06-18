@@ -16,7 +16,8 @@ public abstract class ControlPanelBase<TypeMod, TypePanel> : CustomUIPanel where
     public static Vector2 ButtonSize { get; } = new(28, 28);
     public virtual float PorpertyPanelWidth => PanelWidth - 2 * 16;
 
-    public ControlPanelBase() {
+    public override void Start() {
+        base.Start();
         name = AssemblyUtils.CurrentAssemblyName + "ControlPanel";
         atlas = CustomUIAtlas.MbyronModsAtlas;
         bgSprite = CustomUIAtlas.CustomBackground;

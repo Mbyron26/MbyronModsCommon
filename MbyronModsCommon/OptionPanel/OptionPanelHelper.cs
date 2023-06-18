@@ -149,7 +149,7 @@ public static class OptionPanelHelper {
         panel.StartLayout();
         return panel;
     }
-    public static AlphaSinglePropertyPanel AddButton(string majorText, string minorText, string buttonText, float? buttonWidth, float buttonHeight, OnButtonClicked callback, RectOffset majorOffset = null, RectOffset minorOffset = null) {
+    public static AlphaSinglePropertyPanel AddButton(string majorText, string minorText, string buttonText, float? buttonWidth, float buttonHeight, Action callback, RectOffset majorOffset = null, RectOffset minorOffset = null) {
         if (Group is null) {
             ExternalLogger.Error("OptionPanelHelper_Group is null.");
             return null;
