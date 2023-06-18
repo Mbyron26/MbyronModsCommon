@@ -10,6 +10,7 @@ public static class DebugUtils {
 }
 public sealed class TimeCalculater {
     private Action action;
+
     public TimeCalculater InvokeMethod(out string time, int loop) {
         Stopwatch sw = new();
         sw.Start();
