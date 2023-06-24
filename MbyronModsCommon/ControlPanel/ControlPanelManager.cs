@@ -45,7 +45,7 @@ public class ControlPanelManager<TypeMod, TypePanel> where TypeMod : IMod where 
         panelGameObject = new GameObject(AssemblyUtils.CurrentAssemblyName + "ControlPanel");
         panelGameObject.transform.parent = UIView.GetAView().transform;
         panel = panelGameObject.AddComponent<TypePanel>();
-        panel.Show();
+        //panel.Show();
         EventPanelCreated?.Invoke(panel);
         IsVisible = true;
     }

@@ -29,7 +29,6 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
     };
     public virtual string Description => string.Empty;
     public bool IsEnabled { get; private set; }
-    public bool LevelLoaded { get; private set; }
     public abstract List<ModChangeLog> ChangeLog { get; }
     public virtual List<ConflictModInfo> ConflictMods { get; set; }
     public CultureInfo ModCulture {
@@ -40,6 +39,8 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
             SetModCulture(value);
         }
     }
+    public bool IsLevelLoaded { get; set; }
+    public bool LoadedMode { get; set; }
 
     public ModBase() {
         InternalLogger.Log($"Start initializing mod");
@@ -105,38 +106,23 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
         }
     }
 
-    public virtual void OnCreated(ILoading loading) { }
-    public virtual void OnLevelLoaded(LoadMode mode) {
-        LevelLoaded = true;
-        ShowLogMessageBox();
-    }
-    public virtual void OnLevelUnloading() {
-        LevelLoaded = false;
-    }
-    public virtual void OnReleased() { }
-
-    private void ShowLogMessageBox() {
-        if (VersionType != BuildVersion.StableRelease) {
-            SingletonItem<TypeConfig>.Instance.ModVersion = ModVersion.ToString();
+    public void ShowLogMessageBox() {
+        var lastVersion = new Version(SingletonConfig<TypeConfig>.Instance.ModVersion);
+        if ((VersionType != BuildVersion.StableRelease) && (VersionType != BuildVersion.BetaRelease)) {
+            SingletonConfig<TypeConfig>.Instance.ModVersion = ModVersion.ToString();
             SaveConfig();
             return;
         }
-        if (!string.IsNullOrEmpty(SingletonItem<TypeConfig>.Instance.ModVersion)) {
-            var lastVersion = new Version(SingletonItem<TypeConfig>.Instance.ModVersion);
-            if ((lastVersion.Major == ModVersion.Major) && (lastVersion.Minor == ModVersion.Minor) && (lastVersion.Build == ModVersion.Build)) {
-                SingletonItem<TypeConfig>.Instance.ModVersion = ModVersion.ToString();
-                SaveConfig();
-                return;
-            }
-            if (lastVersion < ModVersion) {
-                var messageBox = MessageBox.Show<LogMessageBox>();
-                messageBox.Initialize<TypeMod>(true);
-            }
-            SingletonItem<TypeConfig>.Instance.ModVersion = ModVersion.ToString();
+        if ((lastVersion.Major == ModVersion.Major) && (lastVersion.Minor == ModVersion.Minor) && (lastVersion.Build == ModVersion.Build)) {
+            SingletonConfig<TypeConfig>.Instance.ModVersion = ModVersion.ToString();
             SaveConfig();
-        } else {
-            InternalLogger.Error("Updated version failed, mod version is null or empty in config file.");
+            return;
         }
+        if (lastVersion < ModVersion) {
+            MessageBox.Show<LogMessageBox>().Initialize<TypeMod>(true);
+        }
+        SingletonConfig<TypeConfig>.Instance.ModVersion = ModVersion.ToString();
+        SaveConfig();
     }
 }
 
@@ -177,20 +163,7 @@ public enum BuildVersion {
     StableRelease
 }
 
-public class ModThreadExtensionBase : ThreadingExtensionBase {
-    public void AddCallOnceInvoke(bool target, ref bool flag, Action action) {
-        if (target) {
-            if (!flag) {
-                flag = true;
-                action.Invoke();
-            }
-        } else {
-            flag = false;
-        }
-    }
-}
-
-public interface IMod : IUserMod, ILoadingExtension {
+public interface IMod : IUserMod, IModLoading {
     BuildVersion VersionType { get; }
     string RawName { get; }
     string ModName { get; }
@@ -198,9 +171,17 @@ public interface IMod : IUserMod, ILoadingExtension {
     Version ModVersion { get; }
     ulong StableID { get; }
     CultureInfo ModCulture { get; set; }
+
     void SaveConfig();
     bool LoadConfig();
     void LoadLocale();
+
+}
+
+public interface IModLoading {
+    bool IsLevelLoaded { get; set; }
+    bool LoadedMode { get; set; }
+    void ShowLogMessageBox();
 }
 
 public static class VersionExtension {

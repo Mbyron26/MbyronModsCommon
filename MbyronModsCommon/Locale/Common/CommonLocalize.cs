@@ -234,6 +234,11 @@ namespace MbyronModsCommon {
         public static string No => LocaleManager.GetString("No", Culture);
 
         /// <summary>
+        /// None
+        /// </summary>
+        public static string None => LocaleManager.GetString("None", Culture);
+
+        /// <summary>
         /// Only in game
         /// </summary>
         public static string OnlyInGame => LocaleManager.GetString("OnlyInGame", Culture);

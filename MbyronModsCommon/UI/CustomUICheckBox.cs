@@ -5,7 +5,7 @@ namespace MbyronModsCommon.UI;
 
 public class CustomUICheckBox : CustomUIButtonBase {
     public CustomUICheckBox() {
-        renderFg = true;
+        //renderFg = true;
         buttonType = UIButtonType.Toggle;
     }
 
@@ -19,17 +19,18 @@ public class CustomUICheckBox : CustomUIButtonBase {
         return checkbox;
     }
     public void SetCheckBoxStyle() {
-        textAtlas = bgAtlas = fgAtlas = CustomUIAtlas.MbyronModsAtlas;
-        onBgSprites.SetSprites(CustomUIAtlas.Circle);
+        /*textAtlas = */bgAtlas = fgAtlas = CustomUIAtlas.MbyronModsAtlas;
+        //onBgSprites.SetSprites(CustomUIAtlas.Circle);
+        onBgSprites.SetSprites(CustomUIAtlas.CheckBoxOn);
         onBgSprites.SetColors(CustomUIColor.BlueNormal, CustomUIColor.BlueHovered, CustomUIColor.BluePressed, CustomUIColor.BlueFocused, CustomUIColor.BlueDisabled);
 
-        onFgSprites.SetSprites(CustomUIAtlas.CheckBoxOnFg);
-        OnFgDisabledColor = new Color32(60, 60, 60, 255);
+        //onFgSprites.SetSprites(CustomUIAtlas.CheckBoxOnFg);
+        //OnFgDisabledColor = new Color32(60, 60, 60, 255);
 
         offBgSprites.SetSprites(CustomUIAtlas.CheckBoxOffBg);
         offBgSprites.SetColors(CustomUIColor.OPButtonNormal, CustomUIColor.OPButtonHovered, CustomUIColor.OPButtonPressed, CustomUIColor.OPButtonFocused, CustomUIColor.OPButtonDisabled);
 
-        offFgSprites.SetSprites(CustomUIAtlas.TransparencySprite);
+        //offFgSprites.SetSprites(CustomUIAtlas.TransparencySprite);
         SetStyle();
     }
 

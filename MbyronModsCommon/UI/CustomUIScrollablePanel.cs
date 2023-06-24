@@ -18,7 +18,7 @@ public class AutoSizeUIScrollablePanel : CustomUIPanel {
         set {
             if (value != size) {
                 size = value;
-                if (MainPanel is null) {
+                if (MainPanel is not null) {
                     MainPanel.size = value;
                 }
 

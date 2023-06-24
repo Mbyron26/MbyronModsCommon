@@ -19,12 +19,12 @@ public abstract class ControlPanelBase<TypeMod, TypePanel> : CustomUIPanel where
     public override void Start() {
         base.Start();
         name = AssemblyUtils.CurrentAssemblyName + "ControlPanel";
+        size = new Vector2(PanelWidth, PanelHeight);
         atlas = CustomUIAtlas.MbyronModsAtlas;
         bgSprite = CustomUIAtlas.CustomBackground;
-        isVisible = true;
-        canFocus = true;
-        isInteractive = true;
-        size = new Vector2(PanelWidth, PanelHeight);
+        //isVisible = true;
+        //canFocus = true;
+        //isInteractive = true;
         InitComponents();
         SetPosition();
         eventPositionChanged += (c, v) => PanelPosition = relativePosition;

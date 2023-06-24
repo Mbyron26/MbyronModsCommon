@@ -6,6 +6,8 @@ namespace MbyronModsCommon.UI;
 
 public class CustomUITabContainer : UITabContainerBase<CustomUITabButton, CustomUIScrollablePanel> { }
 
+public class AutoSizeUITabContainer: UITabContainerBase<CustomUITabButton, AutoSizeUIScrollablePanel> { }
+
 public abstract class UITabContainerBase<TypeTab, TypeContainer> : UIComponent where TypeTab : CustomUITabButton where TypeContainer : UIComponent {
     protected UITextureAtlas atlas;
     protected string bgSprite;

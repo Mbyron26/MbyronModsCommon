@@ -136,7 +136,7 @@
     <value>检查</value>
   </data>
   <data name="CompatibilityCheckRequestRestart" xml:space="preserve">
-    <value>Failed to disable incompatible mods, please manually unsubscribe incompatible mods and restart the game.</value>
+    <value>无法自动禁用不兼容的模组，请手动取消订阅不兼容的模组，并重启游戏。</value>
   </data>
   <data name="CompatibilityCheck_Incompatible" xml:space="preserve">
     <value>该模组不兼容。</value>

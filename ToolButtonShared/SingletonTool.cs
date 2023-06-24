@@ -4,12 +4,12 @@ using System;
 using UnifiedUI.Helpers;
 using UnityEngine;
 
-public abstract class SingletonToolManager<TypeTool, TypeInGameToolButton, TypeMod, TypeConfig> : SingletonManager<TypeTool> where TypeTool : class, new() where TypeInGameToolButton : ToolButtonBase<TypeConfig> where TypeMod : IMod where TypeConfig : SingletonConfig<TypeConfig>, new() {
+public abstract class SingletonToolManager<TypeTool, TypeInGameToolButton, TypeMod, TypeConfig> : SingletonTool<TypeTool>, ITool where TypeTool : class, new() where TypeInGameToolButton : ToolButtonBase<TypeConfig> where TypeMod : IMod where TypeConfig : SingletonConfig<TypeConfig>, new() {
     public Action EnableCallback;
     public Action DisableCallback;
 
     public TypeInGameToolButton InGameToolButton { get; private set; }
-    public virtual bool UUISupport { get; } = PluginManagerExtension.FindPlugin("UnifiedUIMod");
+    public override bool UUISupport { get; } = PluginManagerExtension.FindPlugin("UnifiedUIMod");
     protected UUICustomButton UUIButton { get; set; }
     protected abstract Texture2D UUIIcon { get; }
     public bool UUIRegistered { get; protected set; }
@@ -32,22 +32,24 @@ public abstract class SingletonToolManager<TypeTool, TypeInGameToolButton, TypeM
         IsInit = false;
     }
 
-    public virtual void Enable() {
+    public override void Enable() {
         if (UUISupport) {
             if (SingletonConfig<TypeConfig>.Instance.ToolButtonPresent == ToolButtonPresent.InGame) {
                 AddInGameButton();
             } else if (SingletonItem<TypeConfig>.Instance.ToolButtonPresent == ToolButtonPresent.UUI) {
                 RegisterUUI();
-            } else {
+            } else if (SingletonItem<TypeConfig>.Instance.ToolButtonPresent == ToolButtonPresent.Both) {
                 AddInGameButton();
                 RegisterUUI();
             }
         } else {
-            AddInGameButton();
+            if (SingletonConfig<TypeConfig>.Instance.ToolButtonPresent == ToolButtonPresent.InGame) {
+                AddInGameButton();
+            }
         }
         EnableCallback?.Invoke();
     }
-    public virtual void Disable() {
+    public override void Disable() {
         if (UUISupport) {
             LogoutUUI();
         }
@@ -97,6 +99,19 @@ public abstract class SingletonToolManager<TypeTool, TypeInGameToolButton, TypeM
 
 }
 
+public abstract class SingletonTool<T> : SingletonManager<T>, ITool where T : class, new() {
+    public abstract bool UUISupport { get; }
+
+    public abstract void Disable();
+    public abstract void Enable();
+}
+
+public interface ITool {
+    bool UUISupport { get; }
+    void Enable();
+    void Disable();
+}
+
 public partial class SingletonConfig<T> where T : SingletonConfig<T>, new() {
     public ToolButtonPresent ToolButtonPresent { get; set; } = ToolButtonPresent.UUI;
     public float ToolButtonPositionX { get; set; }
@@ -104,7 +119,8 @@ public partial class SingletonConfig<T> where T : SingletonConfig<T>, new() {
 }
 
 public enum ToolButtonPresent {
+    None,
     InGame,
     UUI,
-    Both
+    Both,
 }

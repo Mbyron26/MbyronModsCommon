@@ -20,10 +20,13 @@
     <Compile Include="$(MSBuildThisFileDirectory)MessageBox\MessageBoxBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageBox\ResetModMessageBox.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageBox\SimpleMessageBox.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)modbase\LoadingExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModBase\ModBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModBase\ModPatcherBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModBase\ModConfig.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)modbase\SerializableDataExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)modbase\Singleton.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)modbase\ThreadingExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\AssemblyUtils.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ModUtils\CodeInstructionExtension.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)modutils\CompatibilityManager.cs" />
@@ -165,5 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\Resources\ToolButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)UI\Resources\CheckBoxOn.png" />
   </ItemGroup>
 </Project>

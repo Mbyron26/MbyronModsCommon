@@ -3,11 +3,14 @@ using System;
 using System.Diagnostics;
 
 public static class DebugUtils {
+    public static string GetMicrosecond(this Stopwatch stopwatch) => $"{stopwatch.Elapsed.TotalMilliseconds * 1000:n3}μs";
+
     public static void TimeCalculater(Action action, string tag = "", int loop = 1) {
         new TimeCalculater().AddMethod(action).InvokeMethod(out string time, loop);
-        ExternalLogger.Log(tag + time);
+        InternalLogger.Log($"{tag} {time}");
     }
 }
+
 public sealed class TimeCalculater {
     private Action action;
     public TimeCalculater InvokeMethod(out string time, int loop) {

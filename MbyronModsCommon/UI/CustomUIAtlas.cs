@@ -20,6 +20,7 @@ public static class CustomUIAtlas {
     public static string Circle => nameof(Circle);
     public static string ToggleOnFg => nameof(ToggleOnFg);
     public static string ToggleOffFg => nameof(ToggleOffFg);
+    public static string CheckBoxOn => nameof(CheckBoxOn);
     public static string CheckBoxOnFg => nameof(CheckBoxOnFg);
     public static string CheckBoxOffBg => nameof(CheckBoxOffBg);
     public static string GradientSlider => nameof(GradientSlider);
@@ -42,10 +43,11 @@ public static class CustomUIAtlas {
         SpriteParams[RoundedRectangle5] = new RectOffset(12, 12, 12, 12);
         SpriteParams[Rectangle] = new RectOffset(1, 1, 1, 1);
         SpriteParams[Circle] = new RectOffset();
-        SpriteParams[ToggleOnFg] = new RectOffset(12, 12, 12, 12);
+        SpriteParams[ToggleOnFg] = new RectOffset();
         SpriteParams[ToggleOffFg] = new RectOffset(12, 12, 12, 12);
         SpriteParams[CheckBoxOffBg] = new RectOffset(7, 7, 7, 7);
-        SpriteParams[CheckBoxOnFg] = new RectOffset();
+        SpriteParams[CheckBoxOn] = new RectOffset();
+        SpriteParams[CheckBoxOnFg] = new RectOffset(6, 6, 6, 6);
         SpriteParams[LineBottom] = new RectOffset(1, 1, 0, 0);
         SpriteParams[GradientSlider] = new RectOffset(8, 8, 8, 8);
         SpriteParams[EmptySprite] = new RectOffset(1, 1, 0, 0);

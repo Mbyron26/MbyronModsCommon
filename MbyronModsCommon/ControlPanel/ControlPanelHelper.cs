@@ -4,7 +4,6 @@ using ColossalFramework.UI;
 using System;
 using UnityEngine;
 using ColossalFramework;
-using ICities;
 
 public static class ControlPanelHelper {
     public static float PropertyPanelWidth { get; set; }
@@ -20,7 +19,7 @@ public static class ControlPanelHelper {
             Group.MajorLabelText = caption;
             Group.MajorLabelTextScale = 0.8f;
             Group.MajorLabelColor = CustomUIColor.OffWhite;
-            Group.MajorLabelOffset = new(10, 0, 0, 0);
+            Group.MajorLabelOffset = new(10, 10, 0, 0);
         }
         Group.ItemGap = 4;
         Group.EventSetGroupPropertyPanelStyle += (c) => {
@@ -30,6 +29,19 @@ public static class ControlPanelHelper {
         };
         return Group;
     }
+
+    public static CustomUILabel AddMinorLabel(string text) {
+        if (Group is null) {
+            InternalLogger.Error("ControlPanelHelper_Group is null");
+            return null;
+        }
+        Group.MinorLabelText = text;
+        Group.MinorLabelOffset = new(10, 10, 0, 0);
+        Group.MinorLabelTextScale = 0.8f;
+        Group.MinorLabelColor = CustomUIColor.OffWhite;
+        return Group.MinorLabel;
+    }
+
     public static T AddChildPanel<T>() where T : SinglePropertyPanelBase {
         var panel = Group.AddItemPanel<T>();
         panel.width = PropertyPanelWidth;
@@ -106,6 +118,7 @@ public static class ControlPanelHelper {
         panel.StartLayout();
         return panel;
     }
+
     public static AlphaSinglePropertyPanel AddDropDown(string majorText, string minorText, string[] options, int defaultSelection, float dropDownWidth, float dropDownHeight = 24, Action<int> callback = null, RectOffset majorOffset = null, RectOffset minorOffset = null) {
         if (Group is null) {
             ExternalLogger.Error("ControlPanelHelper_Group is null.");
@@ -195,6 +208,7 @@ public static class ControlPanelHelper {
         panel.StartLayout();
         return panel;
     }
+
     public static void Reset() {
         if (Group is not null) {
             Group.ItemPanels[Group.ItemPanels.Count - 1].RenderFg = false;

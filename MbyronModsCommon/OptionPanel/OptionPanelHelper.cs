@@ -1,6 +1,5 @@
 ﻿namespace MbyronModsCommon;
 using ColossalFramework.UI;
-using ICities;
 using System;
 using UnityEngine;
 using MbyronModsCommon.UI;
@@ -49,6 +48,7 @@ public static class OptionPanelHelper {
         }
         return panel;
     }
+
     public static CustomUILabel AddMinorLabel(string text) {
         if (Group is null) {
             ExternalLogger.Error("OptionPanelHelper_Group is null.");
