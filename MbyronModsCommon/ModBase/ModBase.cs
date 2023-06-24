@@ -84,27 +84,31 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
     public void OnEnabled() {
         InternalLogger.Log("Enabled");
         IsEnabled = true;
+        if (UIView.GetAView() != null) {
+            CallIntroActions();
+        } else {
+            LoadingManager.instance.m_introLoaded += CallIntroActions;
+        }
         Enable();
     }
+
     public void OnDisabled() {
         InternalLogger.Log("Disabled");
         IsEnabled = false;
         Disable();
     }
 
-    protected virtual void Enable() {
-        if (UIView.GetAView() != null) {
-            IntroActions();
-        } else {
-            LoadingManager.instance.m_introLoaded += IntroActions;
-        }
-    }
-    protected virtual void Disable() { }
-    public virtual void IntroActions() {
+    private void CallIntroActions() {
         if (ConflictMods is not null || ConflictMods.Count > 0) {
             SingletonManager<CompatibilityManager>.Instance.Init(ModName, ConflictMods);
         }
+        InternalLogger.Log("Call intro actions");
+        IntroActions();
     }
+
+    protected virtual void Enable() { }
+    protected virtual void Disable() { }
+    public virtual void IntroActions() { }
 
     public void ShowLogMessageBox() {
         var lastVersion = new Version(SingletonConfig<TypeConfig>.Instance.ModVersion);
