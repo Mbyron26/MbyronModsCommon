@@ -11,7 +11,7 @@ public static class UIScrollbarHelper {
         scrollbar.minValue = 0;
         scrollbar.value = 0;
         scrollbar.incrementAmount = 50f;
-        scrollbar.autoHide = true;
+        //scrollbar.autoHide = true;
         var trackSprite = scrollbar.AddUIComponent<UISlicedSprite>();
         trackSprite.relativePosition = Vector2.zero;
         trackSprite.autoSize = true;

@@ -65,10 +65,8 @@ public partial class OptionPanelBase<TypeMod, TypeConfig, TypeOptionPanel> : Cus
         label0.width += 8;
         panel0.StartLayout();
         AddExtraModInfoProperty();
-        OptionPanelHelper.AddDropDown(CommonLocalize.Language, null, GetSupportLocales(), LocaleIndex, 310, 30, (v) => {
-            OnLanguageSelectedIndexChanged(v);
-            AddLanguageSelectedIndexChanged();
-        });
+        OptionPanelHelper.AddDropDown(CommonLocalize.Language, null, GetSupportLocales(), LocaleIndex, 310, 30, (_) => OnLanguageSelectedIndexChanged(_)
+        );
         OptionPanelHelper.Reset();
         FillGeneralContainer();
     }
@@ -79,7 +77,7 @@ public partial class OptionPanelBase<TypeMod, TypeConfig, TypeOptionPanel> : Cus
     protected virtual void FillHotkeyContainer() => HotkeyContainer = AddTab(CommonLocalize.OptionPanel_Hotkeys);
     protected virtual void FillAdvancedContainer() { }
     protected virtual void AddExtraModInfoProperty() { }
-    protected virtual void AddLanguageSelectedIndexChanged() { }
+    protected virtual void OnModLocaleChanged() { }
     private void AddAdvancedContainer() {
         AdvancedContainer = AddTab(CommonLocalize.OptionPanel_Advanced);
         OptionPanelHelper.AddGroup(AdvancedContainer, CommonLocalize.OptionPanel_Advanced);
@@ -104,6 +102,7 @@ public partial class OptionPanelBase<TypeMod, TypeConfig, TypeOptionPanel> : Cus
             SingletonItem<TypeConfig>.Instance.LocaleType = LanguageType.Custom;
         }
         OptionPanelManager<TypeMod, TypeOptionPanel>.LocaleChanged();
+        OnModLocaleChanged();
     }
 
 

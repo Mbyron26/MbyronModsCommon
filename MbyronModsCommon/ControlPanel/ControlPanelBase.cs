@@ -49,18 +49,22 @@ public abstract class ControlPanelBase<TypeMod, TypePanel> : CustomUIPanel where
         closeButton.size = ButtonSize;
         closeButton.OnBgSprites.SetSprites(CustomUIAtlas.CloseButton);
         closeButton.OnBgSprites.SetColors(CustomUIColor.White, CustomUIColor.OffWhite, new Color32(180, 180, 180, 255), CustomUIColor.White, CustomUIColor.White);
-        closeButton.relativePosition = new Vector2(width - 6f - 28f, 6f);
+        closeButton.relativePosition = new Vector2(width - ElementOffset - 28f, 6f);
         closeButton.eventClicked += (c, p) => ControlPanelManager<TypeMod, TypePanel>.Close();
     }
     protected virtual void AddDragBar(float width) {
+        title = AddUIComponent<CustomUILabel>();
+        title.AutoSize = false;
+        title.size = new Vector2(width, CaptionHeight);
+        title.relativePosition = Vector2.zero;
+        title.TextHorizontalAlignment = UIHorizontalAlignment.Center;
+        title.TextVerticalAlignment = UIVerticalAlignment.Middle;
+        title.Text = ModMainInfo<TypeMod>.ModName;
+
         dragBar = AddUIComponent<UIDragHandle>();
         dragBar.width = width;
         dragBar.height = CaptionHeight;
         dragBar.relativePosition = Vector2.zero;
-
-        title = dragBar.AddUIComponent<CustomUILabel>();
-        title.Text = ModMainInfo<TypeMod>.ModName;
-        title.CenterToParent();
     }
 
 }
