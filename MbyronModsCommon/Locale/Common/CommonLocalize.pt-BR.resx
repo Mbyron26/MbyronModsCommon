@@ -118,25 +118,25 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AltToChangeAll" xml:space="preserve">
-    <value>Hold Alt to change all values</value>
+    <value>Segure Alt para alterar todos os valores</value>
   </data>
   <data name="Both" xml:space="preserve">
-    <value>Both</value>
+    <value>Ambos</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Cancelar</value>
   </data>
   <data name="ChangeLog" xml:space="preserve">
-    <value>Change log</value>
+    <value>Registro de mudanças</value>
   </data>
   <data name="ChangeLog_Major" xml:space="preserve">
-    <value>Mod change log</value>
+    <value>Registro de alterações de mod</value>
   </data>
   <data name="Check" xml:space="preserve">
-    <value>Check</value>
+    <value>Verificar</value>
   </data>
   <data name="CompatibilityCheckRequestRestart" xml:space="preserve">
-    <value>Failed to disable incompatible mods, please manually unsubscribe incompatible mods and restart the game.</value>
+    <value>Falha ao desabilitar mods incompatíveis, por favor, remova manualmente mods incompatíveis e reinicie o jogo.</value>
   </data>
   <data name="CompatibilityCheck_Incompatible" xml:space="preserve">
     <value>Este mod é incompatível.</value>

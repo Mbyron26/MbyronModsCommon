@@ -14,16 +14,16 @@ public abstract class ModLoadingExtension<T> : LoadingExtensionBase where T : IM
     }
 
     public sealed override void OnLevelLoaded(LoadMode mode) {
+        SingletonMod<T>.Instance.IsLevelLoaded = true;
         InternalLogger.Log("Call loading OnLevelLoaded");
         LevelLoaded(mode);
-        SingletonMod<T>.Instance.IsLevelLoaded = true;
         SingletonMod<T>.Instance.ShowLogMessageBox();
     }
 
     public sealed override void OnLevelUnloading() {
+        SingletonMod<T>.Instance.IsLevelLoaded = false;
         InternalLogger.Log("Call loading OnLevelUnloading");
         LevelUnloading();
-        SingletonMod<T>.Instance.IsLevelLoaded = false;
     }
 
     public sealed override void OnReleased() {

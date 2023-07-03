@@ -292,6 +292,7 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
     public bool AllowNegative { get; set; }
     public float CursorBlinkTime { get; set; } = 0.8f;
     public int CursorWidth { get; set; } = 1;
+    public bool CallEventValueChanged { get; set; } = true;
     public SpriteState State {
         get => state;
         set {
@@ -365,7 +366,8 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
             this.value = value;
         }
         RefreshText();
-        EventValueChanged?.Invoke(this.value);
+        if (CallEventValueChanged)
+            EventValueChanged?.Invoke(this.value);
     }
     protected virtual void OnStateChanged(SpriteState value) {
         if (!isEnabled && value != SpriteState.Disabled) {
