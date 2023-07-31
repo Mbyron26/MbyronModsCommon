@@ -265,9 +265,12 @@ public class CustomUISlider : UIComponent {
 
 
     private SteppingRate GetSteppingRate() {
-        if (KeyHelper.IsShiftDown()) return SteppingRate.Fast;
-        else if (KeyHelper.IsControlDown()) return SteppingRate.Slow;
-        else return SteppingRate.Normal;
+        if (KeyBinding.IsShiftDown()) 
+            return SteppingRate.Fast;
+        else if (KeyBinding.IsControlDown()) 
+            return SteppingRate.Slow;
+        else 
+            return SteppingRate.Normal;
     }
     protected virtual float ValueDecrease(SteppingRate steppingRate) {
         var rate = GetStep(steppingRate);

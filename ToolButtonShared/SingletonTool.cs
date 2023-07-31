@@ -9,7 +9,7 @@ public abstract class SingletonToolManager<TypeTool, TypeInGameToolButton, TypeM
     public Action DisableCallback;
 
     public TypeInGameToolButton InGameToolButton { get; private set; }
-    public override bool UUISupport { get; } = PluginManagerExtension.FindPlugin("UnifiedUIMod");
+    public override bool UUISupport { get; } = PluginManagerExtension.IsPluginEnabled("UnifiedUIMod");
     protected UUICustomButton UUIButton { get; set; }
     protected abstract Texture2D UUIIcon { get; }
     public bool UUIRegistered { get; protected set; }
@@ -43,6 +43,7 @@ public abstract class SingletonToolManager<TypeTool, TypeInGameToolButton, TypeM
                 RegisterUUI();
             }
         } else {
+            EnsurePresent();
             if (SingletonConfig<TypeConfig>.Instance.ToolButtonPresent == ToolButtonPresent.InGame) {
                 AddInGameButton();
             }
@@ -55,6 +56,13 @@ public abstract class SingletonToolManager<TypeTool, TypeInGameToolButton, TypeM
         }
         RemoveInGameButton();
         DisableCallback?.Invoke();
+    }
+
+    protected virtual void EnsurePresent() {
+        if (!UUISupport && (SingletonConfig<TypeConfig>.Instance.ToolButtonPresent != ToolButtonPresent.InGame || SingletonConfig<TypeConfig>.Instance.ToolButtonPresent != ToolButtonPresent.None)) {
+            SingletonConfig<TypeConfig>.Instance.ToolButtonPresent = ToolButtonPresent.InGame;
+            SingletonMod<TypeMod>.Instance.SaveConfig();
+        }
     }
 
     protected void AddInGameButton() {

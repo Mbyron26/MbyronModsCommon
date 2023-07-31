@@ -794,8 +794,8 @@ public abstract class CustomUIValueFieldBase<T> : CustomUITextComponent where T 
     protected abstract T ValueIncrease(SteppingRate steppingRate);
     protected abstract T GetStep(SteppingRate steppingRate);
     private SteppingRate GetSteppingRate() {
-        if (KeyHelper.IsShiftDown()) return SteppingRate.Fast;
-        else if (KeyHelper.IsControlDown()) return SteppingRate.Slow;
+        if (KeyBinding.IsShiftDown()) return SteppingRate.Fast;
+        else if (KeyBinding.IsControlDown()) return SteppingRate.Slow;
         else return SteppingRate.Normal;
     }
 

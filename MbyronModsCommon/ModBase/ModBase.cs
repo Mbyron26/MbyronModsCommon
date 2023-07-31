@@ -7,7 +7,7 @@ using ColossalFramework.Globalization;
 using ColossalFramework;
 using ColossalFramework.UI;
 
-public class ModMainInfo<Mod> : SingletonMod<Mod> where Mod : IMod {
+public class ModMainInfo<TypeMod> : SingletonMod<TypeMod> where TypeMod : IMod {
     public static string RawName => Instance.RawName;
     public static string ModName => Instance.ModName;
     public static Version ModVersion => Instance.ModVersion;
@@ -55,7 +55,7 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
 
     public virtual void SetModCulture(CultureInfo cultureInfo) { }
     public void OnSettingsUI(UIHelperBase helper) {
-        InternalLogger.Log($"Setting UI.");
+        InternalLogger.Log($"Setting UI");
         SettingsUI(helper);
     }
     protected virtual void SettingsUI(UIHelperBase helper) { }
@@ -99,9 +99,8 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
     }
 
     private void CallIntroActions() {
-        if (ConflictMods is not null || ConflictMods.Count > 0) {
-            SingletonManager<CompatibilityManager>.Instance.Init(ModName, ConflictMods);
-        }
+        ConflictMods ??= new List<ConflictModInfo>();
+        SingletonManager<CompatibilityManager>.Instance.Init(ModName, ConflictMods);
         InternalLogger.Log("Call intro actions");
         IntroActions();
     }

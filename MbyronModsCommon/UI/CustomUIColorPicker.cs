@@ -143,7 +143,7 @@ public class CustomUIColorPicker : CustomUIPanel {
         if (Processing)
             return;
         Processing = true;
-        if (KeyHelper.IsAltDown()) {
+        if (KeyBinding.IsAltDown()) {
             rValueField.Value = value;
             gValueField.Value = value;
             bValueField.Value = value;

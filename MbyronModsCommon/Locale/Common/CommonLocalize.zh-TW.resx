@@ -262,7 +262,7 @@
     <value>Only in UUI</value>
   </data>
   <data name="OptionPanel_Advanced" xml:space="preserve">
-    <value>先進的</value>
+    <value>進階設定</value>
   </data>
   <data name="OptionPanel_BuiltinFunction" xml:space="preserve">
     <value>內置函數</value>
@@ -274,7 +274,7 @@
     <value>高級功能。它僅用於調試輸出。如果出現問題，建議啟用此選項並在重複問題後將您的日誌發送給開發人員。</value>
   </data>
   <data name="OptionPanel_DebugMode" xml:space="preserve">
-    <value>調試模式</value>
+    <value>除錯模式</value>
   </data>
   <data name="OptionPanel_General" xml:space="preserve">
     <value>一般的</value>

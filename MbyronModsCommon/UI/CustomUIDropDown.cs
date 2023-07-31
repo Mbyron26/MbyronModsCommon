@@ -138,11 +138,29 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
             }
         }
     }
+    public string BgNormalSprite {
+        get => bgSprites.NormalSprite;
+        set {
+            if (!bgSprites.NormalSprite.Equals(value)) {
+                bgSprites.NormalSprite = value;
+                Invalidate();
+            }
+        }
+    }
     public Color32 BgNormalColor {
         get => bgSprites.NormalColor;
         set {
             if (!bgSprites.NormalColor.Equals(value)) {
                 bgSprites.NormalColor = value;
+                Invalidate();
+            }
+        }
+    }
+    public string BgHoveredSprite {
+        get => bgSprites.HoveredSprite;
+        set {
+            if (!bgSprites.HoveredSprite.Equals(value)) {
+                bgSprites.HoveredSprite = value;
                 Invalidate();
             }
         }
@@ -156,11 +174,29 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
             }
         }
     }
+    public string BgPressedSprite {
+        get => bgSprites.PressedSprite;
+        set {
+            if (!bgSprites.PressedSprite.Equals(value)) {
+                bgSprites.PressedSprite = value;
+                Invalidate();
+            }
+        }
+    }
     public Color32 BgPressedColor {
         get => bgSprites.PressedColor;
         set {
             if (!bgSprites.PressedColor.Equals(value)) {
                 bgSprites.PressedColor = value;
+                Invalidate();
+            }
+        }
+    }
+    public string BgFoucusedSprite {
+        get => bgSprites.FocusedSprite;
+        set {
+            if (!bgSprites.FocusedSprite.Equals(value)) {
+                bgSprites.FocusedSprite = value;
                 Invalidate();
             }
         }
@@ -174,11 +210,29 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
             }
         }
     }
+    public string BgDisabledSprite {
+        get => bgSprites.DisabledSprite;
+        set {
+            if (!bgSprites.DisabledSprite.Equals(value)) {
+                bgSprites.DisabledSprite = value;
+                Invalidate();
+            }
+        }
+    }
     public Color32 BgDisabledColor {
         get => bgSprites.DisabledColor;
         set {
             if (!bgSprites.DisabledColor.Equals(value)) {
                 bgSprites.DisabledColor = value;
+                Invalidate();
+            }
+        }
+    }
+    public string FgNormalSprite {
+        get => fgSprites.NormalSprite;
+        set {
+            if (!fgSprites.NormalSprite.Equals(value)) {
+                fgSprites.NormalSprite = value;
                 Invalidate();
             }
         }
@@ -192,11 +246,29 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
             }
         }
     }
+    public string FgHoveredSprite {
+        get => fgSprites.HoveredSprite;
+        set {
+            if (!fgSprites.HoveredSprite.Equals(value)) {
+                fgSprites.HoveredSprite = value;
+                Invalidate();
+            }
+        }
+    }
     public Color32 FgHoveredColor {
         get => fgSprites.HoveredColor;
         set {
             if (!fgSprites.HoveredColor.Equals(value)) {
                 fgSprites.HoveredColor = value;
+                Invalidate();
+            }
+        }
+    }
+    public string FgPressedSprite {
+        get => fgSprites.PressedSprite;
+        set {
+            if (!fgSprites.PressedSprite.Equals(value)) {
+                fgSprites.PressedSprite = value;
                 Invalidate();
             }
         }
@@ -210,11 +282,29 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
             }
         }
     }
+    public string FgFoucusedSprite {
+        get => fgSprites.FocusedSprite;
+        set {
+            if (!fgSprites.FocusedSprite.Equals(value)) {
+                fgSprites.FocusedSprite = value;
+                Invalidate();
+            }
+        }
+    }
     public Color32 FgFocusedColor {
         get => fgSprites.FocusedColor;
         set {
             if (!fgSprites.FocusedColor.Equals(value)) {
                 fgSprites.FocusedColor = value;
+                Invalidate();
+            }
+        }
+    }
+    public string FgDisabledSprite {
+        get => fgSprites.DisabledSprite;
+        set {
+            if (!fgSprites.DisabledSprite.Equals(value)) {
+                fgSprites.DisabledSprite = value;
                 Invalidate();
             }
         }
@@ -441,7 +531,6 @@ public abstract class CustomUIDropDownBase<T> : CustomUITextComponent where T : 
                 p.Use();
             }
         }
-        base.OnKeyDown(p);
     }
     public override void OnEnable() {
         base.OnEnable();
