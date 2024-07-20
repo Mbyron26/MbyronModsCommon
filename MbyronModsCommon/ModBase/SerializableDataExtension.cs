@@ -9,22 +9,22 @@ public abstract class ModSerializableDataExtension : SerializableDataExtensionBa
 
     public sealed override void OnCreated(ISerializableData serializableData) {
         base.OnCreated(serializableData);
-        InternalLogger.Log("Call serializable data OnCreated");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Call serializable data OnCreated");
         Created(serializableData);
     }
 
     public sealed override void OnLoadData() {
-        InternalLogger.Log("Call serializable data OnLoadData");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Call serializable data OnLoadData");
         LoadData();
     }
 
     public sealed override void OnSaveData() {
-        InternalLogger.Log("Call serializable data OnSaveData");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Call serializable data OnSaveData");
         SaveData();
     }
 
     public sealed override void OnReleased() {
-        InternalLogger.Log("Call serializable data OnReleased");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Call serializable data OnReleased");
         Released();
     }
 }

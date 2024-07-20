@@ -9,25 +9,25 @@ public abstract class ModLoadingExtension<T> : LoadingExtensionBase where T : IM
 
     public sealed override void OnCreated(ILoading loading) {
         base.OnCreated(loading);
-        InternalLogger.Log("Call loading OnCreated");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Call loading OnCreated");
         Created(loading);
     }
 
     public sealed override void OnLevelLoaded(LoadMode mode) {
         SingletonMod<T>.Instance.IsLevelLoaded = true;
-        InternalLogger.Log("Call loading OnLevelLoaded");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Call loading OnLevelLoaded");
         LevelLoaded(mode);
         SingletonMod<T>.Instance.ShowLogMessageBox();
     }
 
     public sealed override void OnLevelUnloading() {
         SingletonMod<T>.Instance.IsLevelLoaded = false;
-        InternalLogger.Log("Call loading OnLevelUnloading");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Call loading OnLevelUnloading");
         LevelUnloading();
     }
 
     public sealed override void OnReleased() {
-        InternalLogger.Log("Call loading OnReleased");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Call loading OnReleased");
         Released();
     }
 }

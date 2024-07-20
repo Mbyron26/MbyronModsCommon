@@ -25,9 +25,9 @@ public class CompatibilityManager : SingletonManager<CompatibilityManager> {
     private bool RemoveConflictMod(ConflictModInfo mod) {
         var flag = PlatformService.workshop.Unsubscribe(new PublishedFileId(mod.fileID));
         if (flag) {
-            InternalLogger.Log($"Unsubscribed conflict mod succeeded: {mod.name}");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info($"Unsubscribed conflict mod succeeded: {mod.name}");
         } else {
-            InternalLogger.Log($"Unsubscribed conflict mod failed: {mod.name}");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info($"Unsubscribed conflict mod failed: {mod.name}");
         }
         return flag;
     }
@@ -37,7 +37,7 @@ public class CompatibilityManager : SingletonManager<CompatibilityManager> {
             return;
         DetectedConflictMods.Clear();
         foreach (PluginManager.PluginInfo info in Singleton<PluginManager>.instance.GetPluginsInfoSortByName()) {
-            if (info is not null && info.userModInstance is IUserMod) {
+            if (info is not null /*&& info.userModInstance is IUserMod*/) {
                 for (int i = 0; i < ConflictMods.Count; i++) {
                     if (info.publishedFileID.AsUInt64 == ConflictMods[i].fileID) {
                         DetectedConflictMods.Add(ConflictMods[i]);
@@ -52,7 +52,7 @@ public class CompatibilityManager : SingletonManager<CompatibilityManager> {
             foreach (var item in DetectedConflictMods) {
                 stringBuilder.Append($"[{item.name}]\n");
             }
-            InternalLogger.Warning(stringBuilder.ToString());
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Warn(stringBuilder.ToString());
         }
     }
 

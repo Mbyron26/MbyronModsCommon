@@ -81,7 +81,6 @@ public partial class OptionPanelBase<TypeMod, TypeConfig, TypeOptionPanel> : Cus
     private void AddAdvancedContainer() {
         AdvancedContainer = AddTab(CommonLocalize.OptionPanel_Advanced);
         OptionPanelHelper.AddGroup(AdvancedContainer, CommonLocalize.OptionPanel_Advanced);
-        OptionPanelHelper.AddToggle(SingletonItem<TypeConfig>.Instance.DebugMode, CommonLocalize.OptionPanel_DebugMode, CommonLocalize.OptionPanel_DebugMinor, _ => SingletonItem<TypeConfig>.Instance.DebugMode = _);
         OptionPanelHelper.AddButton(CommonLocalize.ChangeLog_Major, null, CommonLocalize.ChangeLog, 250, 30, ShowLog);
         OptionPanelHelper.AddButton(CommonLocalize.CompatibilityCheck_Major, CommonLocalize.CompatibilityCheck_Minor, CommonLocalize.Check, 250, 30, ShowCompatibility);
         OptionPanelHelper.AddButton(CommonLocalize.ResetModMajor, CommonLocalize.ResetModMinor, CommonLocalize.Reset, 250, 30, ResetSettings);
@@ -128,18 +127,18 @@ public partial class OptionPanelBase<TypeMod, TypeConfig, TypeOptionPanel> : Cus
             messageBox = MessageBox.Show<ResetModWarningMessageBox>();
             messageBox.Init<TypeMod>(First);
         } catch (Exception e) {
-            InternalLogger.Exception($"Reset settings failed:", e);
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error(e,$"Reset settings failed:");
             MessageBox.Show<ResetModMessageBox>().Init<TypeMod>(false);
         }
 
         void First() {
-            InternalLogger.Log($"Start resetting mod config.");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info($"Start resetting mod config.");
             SingletonItem<TypeConfig>.Instance = null;
             SingletonItem<TypeConfig>.Instance = new();
             SingletonMod<TypeMod>.Instance.LoadLocale();
             OptionPanelManager<TypeMod, TypeOptionPanel>.LocaleChanged();
             ResetCallback?.Invoke();
-            InternalLogger.Log($"Reset mod config succeeded.");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info($"Reset mod config succeeded.");
             MessageBox.Hide(messageBox);
             messageBox1 = MessageBox.Show<ResetModMessageBox>();
             messageBox1.Init<TypeMod>(true);

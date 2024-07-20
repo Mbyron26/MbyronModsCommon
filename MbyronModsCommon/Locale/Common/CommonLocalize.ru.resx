@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AltToChangeAll" xml:space="preserve">
-    <value>Hold Alt to change all values</value>
+    <value>Удерживайте Alt, чтобы изменить все значения</value>
   </data>
   <data name="Both" xml:space="preserve">
-    <value>Both</value>
+    <value>Оба</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Отмена</value>
   </data>
   <data name="ChangeLog" xml:space="preserve">
     <value>Список изменений</value>
@@ -136,7 +136,7 @@
     <value>Проверить</value>
   </data>
   <data name="CompatibilityCheckRequestRestart" xml:space="preserve">
-    <value>Failed to disable incompatible mods, please manually unsubscribe incompatible mods and restart the game.</value>
+    <value>Не удалось отключить несовместимые моды. Отмените подписку на несовместимые моды вручную и перезапустите игру.</value>
   </data>
   <data name="CompatibilityCheck_Incompatible" xml:space="preserve">
     <value>Этот мод несовместим.</value>
@@ -145,7 +145,7 @@
     <value>Проверка совместимости</value>
   </data>
   <data name="CompatibilityCheck_Minor" xml:space="preserve">
-    <value>This function only detects compatibility issues related to this mod. To check compatibility for all mods, [Skyve] mod is recommended.</value>
+    <value>Эта функция обнаруживает только проблемы совместимости, связанные с этим модом. Для проверки совместимости всех модов рекомендуется использовать мод [Skyve].</value>
   </data>
   <data name="CompatibilityCheck_SameFunctionality" xml:space="preserve">
     <value>уже включает в себя ту же функцию.</value>
@@ -163,61 +163,61 @@
     <value>Язык</value>
   </data>
   <data name="Language_cs" xml:space="preserve">
-    <value>Czech</value>
+    <value>Чешский</value>
   </data>
   <data name="Language_de" xml:space="preserve">
-    <value>German</value>
+    <value>Немецкий</value>
   </data>
   <data name="Language_en" xml:space="preserve">
-    <value>English</value>
+    <value>Английский</value>
   </data>
   <data name="Language_es_ES" xml:space="preserve">
-    <value>Spanish</value>
+    <value>Испанский</value>
   </data>
   <data name="Language_fr" xml:space="preserve">
-    <value>French</value>
+    <value>Французский</value>
   </data>
   <data name="Language_GameLanguage" xml:space="preserve">
     <value>Язык игры</value>
   </data>
   <data name="Language_it" xml:space="preserve">
-    <value>Italian</value>
+    <value>Итальянский</value>
   </data>
   <data name="Language_ja" xml:space="preserve">
-    <value>Japanese</value>
+    <value>Японский</value>
   </data>
   <data name="Language_ko" xml:space="preserve">
-    <value>Korean</value>
+    <value>Корейский</value>
   </data>
   <data name="Language_ms" xml:space="preserve">
-    <value>Malay</value>
+    <value>Малайский</value>
   </data>
   <data name="Language_nl" xml:space="preserve">
-    <value>Dutch</value>
+    <value>Голландский</value>
   </data>
   <data name="Language_pl" xml:space="preserve">
-    <value>Polish</value>
+    <value>Польский</value>
   </data>
   <data name="Language_pt_BR" xml:space="preserve">
-    <value>Portuguese-Brazil</value>
+    <value>Португальский-Бразилия</value>
   </data>
   <data name="Language_ru" xml:space="preserve">
     <value>Русский</value>
   </data>
   <data name="Language_sk" xml:space="preserve">
-    <value>Slovak</value>
+    <value>Словацкий</value>
   </data>
   <data name="Language_th" xml:space="preserve">
-    <value>Thai</value>
+    <value>Тайский</value>
   </data>
   <data name="Language_tr" xml:space="preserve">
-    <value>Turkish</value>
+    <value>Турецкий</value>
   </data>
   <data name="Language_zh_CN" xml:space="preserve">
-    <value>Simplified Chinese</value>
+    <value>Китайский упрощённый</value>
   </data>
   <data name="Language_zh_TW" xml:space="preserve">
-    <value>Traditional Chinese</value>
+    <value>Китайский традиционный</value>
   </data>
   <data name="LogMessageBox_Added" xml:space="preserve">
     <value>Добавлено</value>
@@ -226,7 +226,7 @@
     <value>Корректировка</value>
   </data>
   <data name="LogMessageBox_Attention" xml:space="preserve">
-    <value>Attention</value>
+    <value>Внимание</value>
   </data>
   <data name="LogMessageBox_Fixed" xml:space="preserve">
     <value>Исправлено</value>
@@ -238,7 +238,7 @@
     <value>Удалено</value>
   </data>
   <data name="LogMessageBox_Translation" xml:space="preserve">
-    <value>Translation</value>
+    <value>Перевод</value>
   </data>
   <data name="LogMessageBox_Updated" xml:space="preserve">
     <value>Обновленно</value>
@@ -256,10 +256,10 @@
     <value>Нет</value>
   </data>
   <data name="OnlyInGame" xml:space="preserve">
-    <value>Only in game</value>
+    <value>Только в игре</value>
   </data>
   <data name="OnlyInUUI" xml:space="preserve">
-    <value>Only in UUI</value>
+    <value>Только в пользовательском интерфейсе</value>
   </data>
   <data name="OptionPanel_Advanced" xml:space="preserve">
     <value>Дополнительно</value>
@@ -310,7 +310,7 @@
     <value>Сброс удался.</value>
   </data>
   <data name="ResetModWarning" xml:space="preserve">
-    <value>Are you sure you want to reset the configuration of the mod?</value>
+    <value>Вы уверены, что хотите сбросить конфигурацию мода?</value>
   </data>
   <data name="ScrollWheel" xml:space="preserve">
     <value>Крутите колесико для изменения
@@ -320,10 +320,10 @@ Shift X10, Ctrl X0.1</value>
     <value>Показать панель управления</value>
   </data>
   <data name="ToolButton" xml:space="preserve">
-    <value>Tool Button</value>
+    <value>Кнопка инструмента</value>
   </data>
   <data name="ToolButtonDisplay" xml:space="preserve">
-    <value>Tool button display</value>
+    <value>Отображение кнопок инструментов</value>
   </data>
   <data name="XMLWariningMessageBox_Warning" xml:space="preserve">
     <value>Внимание! Мод не может прочитать старые данные конфигурации. Теперь для мода была загружена конфигурация по умолчанию. Пожалуйста, перейдите на панель опций и настройте настройки перед началом игры.</value>

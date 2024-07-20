@@ -68,9 +68,10 @@ public static class CustomUIAtlas {
                 var atlas = UIUtils.GetAtlas(nameof(MbyronModsAtlas));
                 if (atlas is not null) {
                     mbyronModsAtlas = atlas;
-                } else {
+                }
+                else {
                     mbyronModsAtlas = UIUtils.CreateTextureAtlas(nameof(MbyronModsAtlas), $"{AssemblyUtils.CurrentAssemblyName}.UI.Resources.", SpriteParams);
-                    InternalLogger.Log("Initialized MbyronModsAtlas");
+                    MbyronModsCommon.Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Initialized MbyronModsAtlas");
                 }
             }
             return mbyronModsAtlas;

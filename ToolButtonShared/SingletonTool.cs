@@ -66,7 +66,7 @@ public abstract class SingletonToolManager<TypeTool, TypeInGameToolButton, TypeM
     }
 
     protected void AddInGameButton() {
-        InternalLogger.Log("Adding InGame button");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Adding InGame button");
         InGameToolButton = UIView.GetAView().AddUIComponent(typeof(TypeInGameToolButton)) as TypeInGameToolButton;
         InGameToolButton.tooltipBox = UIView.GetAView()?.defaultTooltipBox;
         InGameToolButton.tooltip = Tooltip;
@@ -76,7 +76,7 @@ public abstract class SingletonToolManager<TypeTool, TypeInGameToolButton, TypeM
         if (InGameToolButton is null) {
             return;
         }
-        InternalLogger.Log("Removing InGame button");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Removing InGame button");
         InGameToolButton.EventToggleChanged -= InGameToolButtonToggle;
         InGameToolButton.tooltip = Tooltip;
         InGameToolButton.Destroy();
@@ -86,7 +86,7 @@ public abstract class SingletonToolManager<TypeTool, TypeInGameToolButton, TypeM
         if (UUIRegistered || !UUISupport) {
             return;
         }
-        InternalLogger.Log("UnifiedUI detected, registering UUI");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("UnifiedUI detected, registering UUI");
         UUIButton = UUIHelpers.RegisterCustomButton(AssemblyUtils.CurrentAssemblyName, null, Tooltip, UUIIcon, UUIButtonToggle);
         UUIButton.Button.eventTooltipEnter += (c, e) => c.tooltip = Tooltip;
         UUIButton.IsPressed = false;
@@ -96,7 +96,7 @@ public abstract class SingletonToolManager<TypeTool, TypeInGameToolButton, TypeM
         if (!UUIRegistered || !UUISupport || UUIButton is null) {
             return;
         }
-        InternalLogger.Log("UnifiedUI detected, logouting UUI");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("UnifiedUI detected, logouting UUI");
         UUIButton.Button.Destroy();
         UUIButton = null;
         UUIRegistered = false;

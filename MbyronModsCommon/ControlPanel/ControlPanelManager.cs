@@ -1,6 +1,5 @@
 ﻿namespace MbyronModsCommon;
 using ColossalFramework.UI;
-using MbyronModsCommon.UI;
 using System;
 using UnityEngine;
 

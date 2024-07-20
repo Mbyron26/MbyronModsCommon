@@ -29,7 +29,7 @@ public class OptionPanelManager<Mod, OptionPanel> where OptionPanel : CustomUIPa
             }
         }
         catch (UnityException e) {
-            InternalLogger.Exception("Create option panel object failed.", e);
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error(e, "Create option panel object failed.");
         }
     }
     private static void Destroy() {
@@ -56,7 +56,8 @@ public class OptionPanelManager<Mod, OptionPanel> where OptionPanel : CustomUIPa
 #else
                 Create();
 #endif
-            } else {
+            }
+            else {
 #if BETA_DEBUG
                 DebugUtils.TimeCalculater(Destroy, "OptionPanelManager Destroy");
 #else

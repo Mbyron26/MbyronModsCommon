@@ -11,6 +11,8 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ToolButtonShared", "ToolBut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VSIXLocalizeGenerator", "MbyronModsCommon\VSIXLocalizeGenerator\VSIXLocalizeGenerator.csproj", "{BEA8E885-0046-4CAE-A824-87852F616C1B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MbyronModsCommon.API", "MbyronModsCommon.API\MbyronModsCommon.API.csproj", "{1B2BE7F9-B778-4A1E-955D-8D156772AADA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,18 @@ Global
 		{BEA8E885-0046-4CAE-A824-87852F616C1B}.Release|arm64.Build.0 = Release|arm64
 		{BEA8E885-0046-4CAE-A824-87852F616C1B}.Release|x86.ActiveCfg = Release|x86
 		{BEA8E885-0046-4CAE-A824-87852F616C1B}.Release|x86.Build.0 = Release|x86
+		{1B2BE7F9-B778-4A1E-955D-8D156772AADA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B2BE7F9-B778-4A1E-955D-8D156772AADA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B2BE7F9-B778-4A1E-955D-8D156772AADA}.Debug|arm64.ActiveCfg = Debug|Any CPU
+		{1B2BE7F9-B778-4A1E-955D-8D156772AADA}.Debug|arm64.Build.0 = Debug|Any CPU
+		{1B2BE7F9-B778-4A1E-955D-8D156772AADA}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1B2BE7F9-B778-4A1E-955D-8D156772AADA}.Debug|x86.Build.0 = Debug|Any CPU
+		{1B2BE7F9-B778-4A1E-955D-8D156772AADA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B2BE7F9-B778-4A1E-955D-8D156772AADA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B2BE7F9-B778-4A1E-955D-8D156772AADA}.Release|arm64.ActiveCfg = Release|Any CPU
+		{1B2BE7F9-B778-4A1E-955D-8D156772AADA}.Release|arm64.Build.0 = Release|Any CPU
+		{1B2BE7F9-B778-4A1E-955D-8D156772AADA}.Release|x86.ActiveCfg = Release|Any CPU
+		{1B2BE7F9-B778-4A1E-955D-8D156772AADA}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

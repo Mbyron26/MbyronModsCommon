@@ -8,7 +8,6 @@ public partial class SingletonConfig<T> : SingletonItem<T> where T : SingletonCo
     public string ModVersion { get; set; } = "0.0.0";
     public LanguageType LocaleType { get; set; } = LanguageType.Default;
     public string LocaleID { get; set; } = string.Empty;
-    public bool DebugMode { get; set; }
     [XmlIgnore]
     public static string ConfigFilePath => Path.Combine(DataLocation.localApplicationData, $"{AssemblyUtils.CurrentAssemblyName}Config.xml");
 
@@ -19,13 +18,14 @@ public partial class SingletonConfig<T> : SingletonItem<T> where T : SingletonCo
             XmlSerializerNamespaces xmlSerializerNamespaces = new();
             xmlSerializerNamespaces.Add(string.Empty, string.Empty);
             xmlSerializer.Serialize(sw, Instance, xmlSerializerNamespaces);
-        } catch (Exception e) {
-            InternalLogger.Exception($"Saving {ConfigFilePath} failed", e);
+        }
+        catch (Exception e) {
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error(e, $"Saving {ConfigFilePath} failed");
         }
     }
     public static bool Load() {
         bool result;
-        InternalLogger.Log("Start loading mod config data");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Start loading mod config data");
         var path = Path.Combine(DataLocation.localApplicationData, $"{AssemblyUtils.CurrentAssemblyName}Config.xml");
         try {
             if (File.Exists(path)) {
@@ -33,25 +33,28 @@ public partial class SingletonConfig<T> : SingletonItem<T> where T : SingletonCo
                 XmlSerializer xmlSerializer = new(typeof(T));
                 var c = xmlSerializer.Deserialize(sr);
                 if (c is not T) {
-                    InternalLogger.Log($"XML config cannot be deserialized, the target path: {path}");
-                    InternalLogger.Log("Generate mod default data");
+                    Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Warn($"XML config cannot be deserialized, the target path: {path}");
+                    Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Generate mod default data");
                     Instance = new();
                     result = false;
-                } else {
+                }
+                else {
                     Instance = c as T;
                     result = true;
-                    InternalLogger.Log("Local config exists, loaded the config successfully");
+                    Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Local config exists, loaded the config successfully");
                 }
-            } else {
-                InternalLogger.Log($"No local config found, use mod default config");
+            }
+            else {
+                Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info($"No local config found, use mod default config");
                 Instance = new();
                 result = true;
             }
-        } catch (Exception e) {
-            InternalLogger.Exception($"Could't load data from XML", e);
+        }
+        catch (Exception e) {
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error(e,$"Could't load data from XML");
             Instance = new();
             Save();
-            InternalLogger.Log($"Generate mod default data");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info($"Generate mod default data");
             result = false;
         }
         return result;

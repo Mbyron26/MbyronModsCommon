@@ -118,10 +118,10 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AltToChangeAll" xml:space="preserve">
-    <value>Hold Alt to change all values</value>
+    <value>Alt gedrückt halten, um alle Werte zu ändern</value>
   </data>
   <data name="Both" xml:space="preserve">
-    <value>Both</value>
+    <value>Beides</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Abbrechen</value>
@@ -256,7 +256,7 @@
     <value>Nein</value>
   </data>
   <data name="OnlyInGame" xml:space="preserve">
-    <value>Only in game</value>
+    <value>Nur im Spiel</value>
   </data>
   <data name="OnlyInUUI" xml:space="preserve">
     <value>Only in UUI</value>
@@ -319,10 +319,10 @@
     <value>Kontrollleiste anzeigen</value>
   </data>
   <data name="ToolButton" xml:space="preserve">
-    <value>Tool Button</value>
+    <value>Werkzeugschaltfläche</value>
   </data>
   <data name="ToolButtonDisplay" xml:space="preserve">
-    <value>Tool button display</value>
+    <value>Werkzeugschaltfläche anzeigen</value>
   </data>
   <data name="XMLWariningMessageBox_Warning" xml:space="preserve">
     <value>Warnung! Mod kann die alten Konfigurationsdaten nicht lesen. Jetzt wurde die Standardkonfiguration für den Mod geladen. Bitte gehe zu den Einstellungen und konfiguriere diese, bevor du das Spiel startest.</value>

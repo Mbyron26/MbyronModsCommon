@@ -51,7 +51,7 @@ public static class OptionPanelHelper {
 
     public static CustomUILabel AddMinorLabel(string text) {
         if (Group is null) {
-            ExternalLogger.Error("OptionPanelHelper_Group is null.");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error("OptionPanelHelper_Group is null.");
             return null;
         }
         Group.MinorLabelText = text;
@@ -63,7 +63,7 @@ public static class OptionPanelHelper {
 
     public static KeyMappingSinglePropertyPanel AddKeymapping(string majorText, KeyBinding keyBinding, string tooltip = null, RectOffset majorOffset = null, string minorText = null, RectOffset minorOffset = null) {
         if (Group is null) {
-            ExternalLogger.Error("OptionPanelHelper_Group is null.");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error("OptionPanelHelper_Group is null.");
             return null;
         }
         var panel = AddChildPanel<KeyMappingSinglePropertyPanel>();
@@ -94,7 +94,7 @@ public static class OptionPanelHelper {
     }
     public static GammaSinglePropertyPanel AddStringField(string majorText, string text, string minorText, float width = 700, float height = 30, RectOffset majorOffset = null, RectOffset minorOffset = null) {
         if (Group is null) {
-            ExternalLogger.Error("OptionPanelHelper_Group is null.");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error("OptionPanelHelper_Group is null.");
             return null;
         }
         var panel = AddChildPanel<GammaSinglePropertyPanel>();
@@ -124,7 +124,7 @@ public static class OptionPanelHelper {
     }
     public static AlphaSinglePropertyPanel AddField<TypeField, TypeValue>(string majorText, string minorText, TypeValue defaultValue, TypeValue minLimit, TypeValue maxLimit, Action<TypeValue> callback = null, float fieldWidth = 100, float fieldHeight = 28, RectOffset majorOffset = null, RectOffset minorOffset = null) where TypeField : CustomUIValueFieldBase<TypeValue> where TypeValue : IComparable<TypeValue> {
         if (Group is null) {
-            ExternalLogger.Error("OptionPanelHelper_Group is null.");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error("OptionPanelHelper_Group is null.");
             return null;
         }
         var panel = AddChildPanel<AlphaSinglePropertyPanel>();
@@ -151,7 +151,7 @@ public static class OptionPanelHelper {
     }
     public static AlphaSinglePropertyPanel AddButton(string majorText, string minorText, string buttonText, float? buttonWidth, float buttonHeight, Action callback, RectOffset majorOffset = null, RectOffset minorOffset = null) {
         if (Group is null) {
-            ExternalLogger.Error("OptionPanelHelper_Group is null.");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error("OptionPanelHelper_Group is null.");
             return null;
         }
         var panel = AddChildPanel<AlphaSinglePropertyPanel>();
@@ -176,7 +176,7 @@ public static class OptionPanelHelper {
     }
     public static BoundSliderSinglePropertyPanel AddSlider(string majorText, string minorText, float min, float max, float step, float rawValue, Vector2 sliderSize, Action<float> callback, string majorPrefix = "", string majorSuffix = "", RectOffset majorOffset = null, RectOffset minorOffset = null, bool gradientStyle = false) {
         if (Group is null) {
-            ExternalLogger.Error("OptionPanelHelper_Group is null.");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error("OptionPanelHelper_Group is null.");
             return null;
         }
         var panel = AddChildPanel<BoundSliderSinglePropertyPanel>();
@@ -184,7 +184,8 @@ public static class OptionPanelHelper {
         panel.Child = slider;
         if (gradientStyle) {
             slider.SetGradientStyle();
-        } else {
+        }
+        else {
             slider.SetDefaultStyle();
         }
         if (majorText is not null) {
@@ -209,7 +210,7 @@ public static class OptionPanelHelper {
     }
     public static AlphaSinglePropertyPanel AddLabel(string majorText, string minorText, RectOffset majorOffset = null, RectOffset minorOffset = null) {
         if (Group is null) {
-            ExternalLogger.Error("OptionPanelHelper_Group is null.");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error("OptionPanelHelper_Group is null.");
             return null;
         }
         var panel = AddChildPanel<AlphaSinglePropertyPanel>();
@@ -236,7 +237,7 @@ public static class OptionPanelHelper {
     }
     public static AlphaSinglePropertyPanel AddDropDown(string majorText, string minorText, string[] options, int defaultSelection, float dropDownWidth, float dropDownHeight, Action<int> callback = null, RectOffset majorOffset = null, RectOffset minorOffset = null) {
         if (Group is null) {
-            ExternalLogger.Error("OptionPanelHelper_Group is null.");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error("OptionPanelHelper_Group is null.");
             return null;
         }
         var panel = AddChildPanel<AlphaSinglePropertyPanel>();
@@ -261,7 +262,7 @@ public static class OptionPanelHelper {
     }
     public static DeltaSinglePropertyPanel AddCheckBox(string majorText, string minorText, bool isChecked, Action<bool> callback, RectOffset Padding = null, bool renderLine = true) {
         if (Group is null) {
-            ExternalLogger.Error("OptionPanelHelper_Group is null.");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error("OptionPanelHelper_Group is null.");
             return null;
         }
         var panel = AddChildPanel<DeltaSinglePropertyPanel>(renderLine);
@@ -280,7 +281,7 @@ public static class OptionPanelHelper {
     }
     public static AlphaSinglePropertyPanel AddToggle(bool isOn, string majorText, string minorText, Action<bool> callback, RectOffset majorOffset = null, RectOffset minorOffset = null) {
         if (Group is null) {
-            ExternalLogger.Error("OptionPanelHelper_Group is null.");
+            Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error("OptionPanelHelper_Group is null.");
             return null;
         }
         var panel = AddChildPanel<AlphaSinglePropertyPanel>();

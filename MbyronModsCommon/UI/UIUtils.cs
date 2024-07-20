@@ -41,8 +41,9 @@ public class UIUtils {
             byte[] array = new byte[s.Length];
             s.Read(array, 0, array.Length);
             return new Image(array).CreateTexture();
-        } catch (Exception e) {
-            ExternalLogger.Exception($"Couldn't load texture from assembly, file name:{fileName}", e);
+        }
+        catch (Exception e) {
+            MbyronModsCommon.Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Error(e, $"Couldn't load texture from assembly, file name:{fileName}");
             return null;
         }
     }
@@ -54,7 +55,7 @@ public class UIUtils {
         if (atlas is not null) {
             foreach (var item in atlas) {
                 if (item.name == name) {
-                    ExternalLogger.Log($"Obtained {name} UITextureAtlas.");
+                    MbyronModsCommon.Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info($"Obtained {name} UITextureAtlas.");
                     return item;
                 }
             }

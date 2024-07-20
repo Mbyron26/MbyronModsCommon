@@ -19,12 +19,12 @@ public abstract class ModThreadExtensionBase : ThreadingExtensionBase {
 
     public sealed override void OnCreated(IThreading threading) {
         base.OnCreated(threading);
-        InternalLogger.Log("Call threading OnCreated");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Call threading OnCreated");
         Created(threading);
     }
 
     public sealed override void OnReleased() {
-        InternalLogger.Log("Call threading OnReleased");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info("Call threading OnReleased");
         Released();
     }
 }

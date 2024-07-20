@@ -1,13 +1,10 @@
 ﻿namespace MbyronModsCommon;
 using CitiesHarmony.API;
-using HarmonyLib;
-using System;
-using System.Reflection;
 
 public abstract class ModPatcherBase<TypeMod, TypeConfig> : ModBase<TypeMod, TypeConfig> where TypeMod : ModBase<TypeMod, TypeConfig> where TypeConfig : SingletonConfig<TypeConfig>, new() {
     public virtual string HarmonyID => $"Mbyron26.{RawName}";
-    public Harmony Harmony => new(HarmonyID);
     public bool IsPatched { get; private set; }
+    public HarmonyPatcher Patcher { get; private set; }
 
     protected override void Enable() {
         PatchAll();
@@ -18,66 +15,25 @@ public abstract class ModPatcherBase<TypeMod, TypeConfig> : ModBase<TypeMod, Typ
     protected virtual void PatchAll() {
         if (IsPatched) return;
         if (HarmonyHelper.IsHarmonyInstalled) {
-            InternalLogger.Log("Starting Harmony patches");
-            Harmony.PatchAll();
-            PatchAction();
+            Log.Info("Starting Harmony patches");
+            Patcher = new HarmonyPatcher(Log, HarmonyID);
+            Patcher.Harmony.PatchAll();
+            PatchAction(Patcher);
             IsPatched = true;
-            InternalLogger.Log("Harmony patches completed");
-        } else {
-            InternalLogger.Error("Harmony is not installed correctly");
+            Log.Info("Harmony patches completed");
+        }
+        else {
+            Log.Error("Harmony is not installed correctly");
         }
     }
     protected virtual void UnpatchAll() {
-        if (!IsPatched || !HarmonyHelper.IsHarmonyInstalled) return;
-        InternalLogger.Log("Reverting Harmony patches");
-        Harmony.UnpatchAll(HarmonyID);
+        if (!IsPatched || !HarmonyHelper.IsHarmonyInstalled) 
+            return;
+        Log.Info("Reverting Harmony patches");
+        Patcher.Harmony.UnpatchAll(HarmonyID);
+        Patcher = null;
         IsPatched = false;
     }
-    protected virtual void PatchAction() { }
-    protected void AddPrefix(Type originalType, string originalMethod, Type patchType, string patchMethod, Type[] targetParm = null) => PatchMethod(PatcherType.Prefix, originalType, originalMethod, patchType, patchMethod, targetParm);
-    protected void AddPrefix(MethodBase originalMethodInfo, MethodInfo patchMethodInfo) => PatchMethod(PatcherType.Prefix, originalMethodInfo, patchMethodInfo);
-    protected void AddPostfix(Type originalType, string originalMethod, Type patchType, string patchMethod, Type[] targetParm = null) => PatchMethod(PatcherType.Postfix, originalType, originalMethod, patchType, patchMethod, targetParm);
-    protected void AddPostfix(MethodBase originalMethodInfo, MethodInfo patchMethodInfo) => PatchMethod(PatcherType.Postfix, originalMethodInfo, patchMethodInfo);
-    protected void AddTranspiler(Type originalType, string originalMethod, Type patchType, string patchMethod, Type[] targetParm = null) => PatchMethod(PatcherType.Transpiler, originalType, originalMethod, patchType, patchMethod, targetParm);
-    protected void AddTranspiler(MethodBase originalMethodInfo, MethodInfo patchMethodInfo) => PatchMethod(PatcherType.Transpiler, originalMethodInfo, patchMethodInfo);
-    private void PatchMethod(PatcherType patcherType, MethodBase originalMethodInfo, MethodInfo patchMethodInfo) {
-        if (originalMethodInfo is null) {
-            InternalLogger.Error($"Original method not found");
-            return;
-        }
-        if (patchMethodInfo is null) {
-            InternalLogger.Error($"Patch method not found");
-            return;
-        }
-        switch (patcherType) {
-            case PatcherType.Prefix: Harmony.Patch(originalMethodInfo, prefix: new HarmonyMethod(patchMethodInfo)); break;
-            case PatcherType.Postfix: Harmony.Patch(originalMethodInfo, postfix: new HarmonyMethod(patchMethodInfo)); break;
-            case PatcherType.Transpiler: Harmony.Patch(originalMethodInfo, transpiler: new HarmonyMethod(patchMethodInfo)); break;
-        };
-        InternalLogger.LogPatch(patcherType, originalMethodInfo, originalMethodInfo.Name, patchMethodInfo, patchMethodInfo.Name);
-    }
-    private void PatchMethod(PatcherType patcherType, Type originalType, string originalMethod, Type patchType, string patchMethod, Type[] targetParm = null) {
-        var original = AccessTools.Method(originalType, originalMethod, targetParm);
-        var patch = AccessTools.Method(patchType, patchMethod);
-        if (original is null) {
-            InternalLogger.Error($"Original method [{originalMethod}] not found");
-            return;
-        }
-        if (patch is null) {
-            InternalLogger.Error($"Patch method [{patchMethod}] not found");
-            return;
-        }
-        switch (patcherType) {
-            case PatcherType.Prefix: Harmony.Patch(original, prefix: new HarmonyMethod(patch)); break;
-            case PatcherType.Postfix: Harmony.Patch(original, postfix: new HarmonyMethod(patch)); break;
-            case PatcherType.Transpiler: Harmony.Patch(original, transpiler: new HarmonyMethod(patch)); break;
-        };
-        InternalLogger.LogPatch(patcherType, original, originalMethod, patch, patchMethod);
-    }
-}
-
-public enum PatcherType {
-    Prefix,
-    Postfix,
-    Transpiler
+    protected virtual void PatchAction(HarmonyPatcher harmonyPatcher) { }
+    
 }

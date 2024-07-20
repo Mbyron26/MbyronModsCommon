@@ -1,9 +1,10 @@
-﻿namespace MbyronModsCommon;
+﻿namespace MbyronModsCommon.API;
 using ColossalFramework.Plugins;
 using ColossalFramework;
+using ICities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using ICities;
 using ColossalFramework.UI;
 
 public static class PluginManagerExtension {

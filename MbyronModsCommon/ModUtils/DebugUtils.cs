@@ -7,7 +7,7 @@ public static class DebugUtils {
 
     public static void TimeCalculater(Action action, string tag = "", int loop = 1) {
         new TimeCalculater().AddMethod(action).InvokeMethod(out string time, loop);
-        InternalLogger.Log($"{tag} {time}");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Debug($"{tag} {time}");
     }
 }
 

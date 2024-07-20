@@ -20,7 +20,7 @@ public abstract class SingletonClass<T> where T : class, new() {
         get {
             if (instance is null) {
                 instance = new T();
-                InternalLogger.Log($"Creating singleton of type {typeof(T).Name}");
+                Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info($"Creating singleton of type {typeof(T).Name}");
             }
             return instance;
         }
@@ -29,7 +29,7 @@ public abstract class SingletonClass<T> where T : class, new() {
     public static bool Exists => instance is not null;
     public static void Destory() {
         instance = null;
-        InternalLogger.Log($"Destroyed singleton of type {typeof(T).Name}");
+        Logger.GetLogger(AssemblyUtils.CurrentAssemblyName).Info($"Destroyed singleton of type {typeof(T).Name}");
     }
 }
 

@@ -16,7 +16,7 @@ public class ModMainInfo<TypeMod> : SingletonMod<TypeMod> where TypeMod : IMod {
 
 public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBase<TypeMod, TypeConfig> where TypeConfig : SingletonConfig<TypeConfig>, new() {
     private CultureInfo modCulture;
-
+    public static ILog Log { get; } = Logger.GetLogger(AssemblyUtils.CurrentAssemblyName);
     public virtual string RawName => AssemblyUtils.CurrentAssemblyName;
     public abstract string ModName { get; }
     public virtual Version ModVersion => AssemblyUtils.CurrentAssemblyVersion;
@@ -43,9 +43,8 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
     public bool LoadedMode { get; set; }
 
     public ModBase() {
-        InternalLogger.Log($"Start initializing mod");
+        Log.Info("Start initializing mod");
         SingletonMod<TypeMod>.Instance = (TypeMod)this;
-        ExternalLogger.CreateDebugFile<TypeMod>();
         if (!LoadConfig()) {
             LoadingManager.instance.m_introLoaded += () => MessageBox.Show<OneButtonMessageBox>().Init(Name, CommonLocalize.XMLWariningMessageBox_Warning);
         }
@@ -55,7 +54,7 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
 
     public virtual void SetModCulture(CultureInfo cultureInfo) { }
     public void OnSettingsUI(UIHelperBase helper) {
-        InternalLogger.Log($"Setting UI");
+        Log.Info("Setting UI");
         SettingsUI(helper);
     }
     protected virtual void SettingsUI(UIHelperBase helper) { }
@@ -64,16 +63,18 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
             string localeID;
             if (SingletonItem<TypeConfig>.Instance.LocaleType == LanguageType.Default) {
                 localeID = GetLocale();
-            } else {
+            }
+            else {
                 localeID = SingletonItem<TypeConfig>.Instance.LocaleID;
                 if (localeID.IsNullOrWhiteSpace()) {
                     localeID = GetLocale();
                 }
             }
             ModCulture = new CultureInfo(localeID);
-            InternalLogger.Log($"Change mod locale: {ModCulture.Name}({SingletonItem<TypeConfig>.Instance.LocaleType})");
-        } catch (Exception e) {
-            InternalLogger.Exception($"Could't change mod locale", e);
+            Log.Info($"Change mod locale: {ModCulture.Name}({SingletonItem<TypeConfig>.Instance.LocaleType})");
+        }
+        catch (Exception e) {
+            Log.Error(e, $"Could't change mod locale");
         }
     }
     private string GetLocale() => LocaleManager.exists ? Language.LocaleExtension(LocaleManager.instance.language) : Language.LocaleExtension(new SavedString(Settings.localeID, Settings.gameSettingsFile, DefaultSettings.localeID).value);
@@ -82,18 +83,19 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
     public void SaveConfig() => SingletonConfig<TypeConfig>.Save();
 
     public void OnEnabled() {
-        InternalLogger.Log("Enabled");
+        Log.Info("Enabled");
         IsEnabled = true;
         if (UIView.GetAView() != null) {
             CallIntroActions();
-        } else {
+        }
+        else {
             LoadingManager.instance.m_introLoaded += CallIntroActions;
         }
         Enable();
     }
 
     public void OnDisabled() {
-        InternalLogger.Log("Disabled");
+        Log.Info("Disabled");
         IsEnabled = false;
         Disable();
     }
@@ -101,7 +103,8 @@ public abstract class ModBase<TypeMod, TypeConfig> : IMod where TypeMod : ModBas
     private void CallIntroActions() {
         ConflictMods ??= new List<ConflictModInfo>();
         SingletonManager<CompatibilityManager>.Instance.Init(ModName, ConflictMods);
-        InternalLogger.Log("Call intro actions");
+        Log.Info("Call intro actions");
+        //API.Core.CommonDebug();
         IntroActions();
     }
 
